@@ -1,0 +1,100 @@
+# Site settings
+title: uans3k Home
+SEOTitle: uans3k Home
+header-img: img/home-bg.jpg
+email: uans3k@foxmail.com
+description: 
+keyword: 
+url: http://uans3k.github.io            # your host, for absolute URL
+baseurl:         # for example, '/blog' if your blog hosted on 'host/blog'
+
+#sidebar
+sidebar-about-description: uans3k
+sidebar-avatar: /img/uans3k_icon.jpeg
+
+
+# SNS settings
+RSS: false
+weibo_username:
+zhihu_username:
+github_username: uans3k
+twitter_username:
+facebook_username:
+
+
+# plugins 
+# paginate
+plugins: [jekyll-paginate]
+paginate: 10
+paginate_path: "page/:num/"
+
+# Build settings
+highlighter: rouge
+permalink: pretty
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
+anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
+
+
+
+
+
+
+
+# Markdown settings
+# replace redcarpet to kramdown,
+# although redcarpet can auto highlight code, the lack of header-id make the catalog impossible, so I switch to kramdown
+# document: http://jekyllrb.com/docs/configuration/#kramdown
+markdown: kramdown
+kramdown:
+  input: GFM                            # use Github Flavored Markdown !important
+  use_coderay: true
+  parse_block_html: true
+
+
+
+# Disqus settings
+disqus_username:
+
+# Duoshuo settings
+duoshuo_username:
+# Share component is depend on Comment so we can NOT use share only.
+duoshuo_share:                     # set to false if you want to use Comment without Sharing
+
+
+
+
+# Analytics settings
+# Baidu Analytics
+ba_track_id:
+# Google Analytics
+ga_track_id:           # Format: UA-xxxxxx-xx
+ga_domain: 
+
+
+
+# Featured Tags
+featured-tags: true                     # whether or not using Feature-Tags
+featured-condition-size: 0             # A tag will be featured if the size of it is more than this condition value
+
+
+
+# Friends
+friends:
+# friends: [
+    # {
+    #     title: "Hux Blog",
+    #     href: "http://huangxuan.me"
+    # },{
+    #     title: "Foo",
+    #     href: "#"
+    # },{
+    #     title: "Bar",
+    #     href: "#"
+    # },{
+    #     title: "Example Friends",
+    #     href: "#"
+    # },{
+    #     title: "It helps SEO",
+    #     href: "#"
+    # }
+# ]
