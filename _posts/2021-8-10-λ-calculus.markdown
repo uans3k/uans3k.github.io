@@ -28,14 +28,14 @@ cexp应用时会将第一个exp中的自由参数替换为第二个exp
 ## 2 咖喱化 (curring)
 通过咖喱化可以定义多变量λ演算
 >$
-λ(x\ y).exp:= λx.(λy.exp)) = λx.λy.exp \\
+\\λ(x\ y).exp:= λx.(λy.exp)) = λx.λy.exp
 \ \\
-(λ(x\ y).exp\ a\ b)=(λx.λy.exp\ a\ b)=exp \\
-(λ(x\ y).exp\ a)=(λx.λy.exp\ a)=λy.exp[x:=a]
+(λ(x\ y).exp\ a\ b)=(λx.λy.exp\ a\ b)=exp
+\\ (λ(x\ y).exp\ a)=(λx.λy.exp\ a)=λy.exp[x:=a]
 $
 
 ## 3 谓词与逻辑
-###bool算子
+### bool算子
 >$
 true := λ(a\ b).a \\
 false := λ(a\ b).b
@@ -81,29 +81,29 @@ $
 
 ### c条件选择
 >$
-if:=λ(t\ a\ b).(t\ a\ b)\\
-\ \\
-(if\ false\ a\ b)=(false\ a\ b)=b \\
-(if\ true\ a\ b)=(true\ a\ b)=a
+\\ if:=λ(t\ a\ b).(t\ a\ b)
+\\\
+\\ (if\ false\ a\ b)=(false\ a\ b)=b
+\\ (if\ true\ a\ b)=(true\ a\ b)=a
 $
 
 ## 4 有序对与列表
 ### 有序对
 >$
-[a\ b]:=λt.(if\ t\ a\ b) \\
-car:=λp.(p\ true) \\
-cdr:=λp.(p\ false) \\
-\ \\
-(car\ [a\ b])=(λt.(if\ t\ a\ b)\ true)=a \\
-(cdr\ [a\ b])=(λt.(if\ t\ a\ b)\ flase)=b
+\\ [a\ b]:=λt.(if\ t\ a\ b)
+\\ car:=λp.(p\ true) 
+\\ cdr:=λp.(p\ false)
+\\\
+\\ (car\ [a\ b])=(λt.(if\ t\ a\ b)\ true)=a 
+\\ (cdr\ [a\ b])=(λt.(if\ t\ a\ b)\ flase)=b
 $
 
 ### 列表
 >$
-[a\ b\ c]:=[a\ [b\ c]]=λt.(if\ t\ a\ λt2.(if\ t2\ b\ c)) \\
-\ \\
-(car\ [a\ b\ c])=(car\ [a\ [b\ c]])=a \\
-(cdr\ [a\ b\ c])=(cdr\ [a\ [b\ c]])=[b\ c]
+\\[a\ b\ c]:=[a\ [b\ c]]=λt.(if\ t\ a\ λt2.(if\ t2\ b\ c)) 
+\\\
+\\(car\ [a\ b\ c])=(car\ [a\ [b\ c]])=a
+\\(cdr\ [a\ b\ c])=(cdr\ [a\ [b\ c]])=[b\ c]
 $
 
 
@@ -134,12 +134,12 @@ plus:= λ(m\ n).λ(a\ b).(m a (n a b)) \\
 $
 
 ### zero比较
->$$
-zero?:=λa.((a\ false\ not) false)) \\
-\ \\
-(zero?\ 2)=((2\ false\ not)\ false)=(1\ false\ false)=false\\
-(zero?\ 0)=((0\ false\ not)\ false)=(not\ false)=true
-$$
+>$
+\\ zero?:=λa.((a\ false\ not) false))
+\\\
+\\ (zero?\ 2)=((2\ false\ not)\ false)=(1\ false\ false)=false
+\\ (zero?\ 0)=((0\ false\ not)\ false)=(not\ false)=true
+$
 
 ### 前继
 >$
@@ -153,14 +153,14 @@ pred:=λa.(cdr\ (a\ succ_{pair}\ [0\ 0])) \\
 (pred\ n)=(cdr\ (n\ succ_{pair}\ [0\ 0]))=(cdr\ [n\ n-1])=n-1
 $
 
-###减法
+### 减法
 >$
-sub:= λ(m\ n).(n\ pred\ m)
+\\ sub:= λ(m\ n).(n\ pred\ m)
 \\\
-\\(sub\ m\ n)=(n-1\ pred\ m-1)=...=(0\ pred\ m-n)=m-n
+\\ (sub\ m\ n)=(n-1\ pred\ m-1)=...=(0\ pred\ m-n)=m-n
 $
 
-###乘法
+### 乘法
 >$
 mult:= λ(m\ n).λ(a\ b).(m\ (n\ a\ c)\ b)
 \\\
@@ -168,12 +168,12 @@ mult:= λ(m\ n).λ(a\ b).(m\ (n\ a\ c)\ b)
 \\=λ(a\ b).(m-1\ (n\ a)\ (a^n b))=...=λ(a\ b).(a^{m*n}\ b)=m*n
 $
 
-###指数
+### 指数
 >$
 exp:= λ(m\ n).λ(a\ b).(n\ a\ (m\ a\ b))
 $
 
-###自然数比较
+### 自然数比较
 >$
 \\ ge?:=  λ(m\ n).(zero?\ (sub\ n\ m))
 \\ le?:=   λ(m\ n).(zero?\ (sub\ m\ n))
