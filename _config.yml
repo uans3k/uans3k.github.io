@@ -29,12 +29,9 @@ paginate: 10
 paginate_path: "page/:num/"
 
 # Build settings
-highlighter: rouge
+
 permalink: pretty
 exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
-anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
-
-
 
 
 
@@ -47,9 +44,8 @@ anchorjs: true                          # if you want to customize anchor. check
 markdown: kramdown
 kramdown:
   input: GFM                            # use Github Flavored Markdown !important
-  use_coderay: true
-  parse_block_html: true
-
+  math_engine: mathjax
+  syntax_highlighter: rouge
 
 
 # Disqus settings

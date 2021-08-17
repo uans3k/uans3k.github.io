@@ -4,7 +4,7 @@
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{{ site.description }}">
-    <meta name="keyword"  content="{{ site.keyword }}">
+    <meta name="keyword" content="{{ site.keyword }}">
     <link rel="shortcut icon" href="{{ site.baseurl }}/img/uans3k_icon.jpeg">
 
     <title>{% if page.title %}{{ page.title }} - {{ site.SEOTitle }}{% else %}{{ site.SEOTitle }}{% endif %}</title>
@@ -12,13 +12,13 @@
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="{{ "/css/bootstrap.min.css" | prepend: site.baseurl }}">
+    <link rel="stylesheet" href="{{ " /css/bootstrap.min.css" | prepend: site.baseurl }}">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ "/css/hux-blog.min.css" | prepend: site.baseurl }}">
+    <link rel="stylesheet" href="{{ " /css/hux-blog.min.css" | prepend: site.baseurl }}">
 
     <!-- Pygments Github CSS -->
-    <link rel="stylesheet" href="{{ "/css/syntax.css" | prepend: site.baseurl }}">
+    <link rel="stylesheet" href="{{ " /css/syntax.css" | prepend: site.baseurl }}">
 
     <!-- Custom Fonts -->
     <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
@@ -35,6 +35,35 @@
     <!-- ga & ba script hoook -->
     <script></script>
 
+    <!-- latex-->>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script id="MathJax-script" indentalign="right" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script>
+        MathJax = {
+            tex: {
+                // packages: ['base'],        // extensions to use
+                inlineMath: [['$', '$']],
+                processEnvironments: true, // process \begin{xxx}...\end{xxx} outside math mode
+                // processEscapes: true,      // use \$ to produce a literal dollar sign
+                formatError:               // function called when TeX syntax errors occur
+                    (jax, err) => jax.formatError(err)
+            },
+            chtml: {
+                packages:['output/HTML-CSS'],
+                // scale: 1,                      // global scaling factor for all expressions
+                // minScale: .5,                  // smallest scaling factor to use
+                // mtextInheritFont: false,       // true to make mtext elements use surrounding font
+                // merrorInheritFont: false,      // true to make merror text use surrounding font
+                // mtextFont: '',                 // font to use for mtext, if not inheriting (empty means use MathJax fonts)
+                // merrorFont: 'serif',           // font to use for merror, if not inheriting (empty means use MathJax fonts)
+                // unknownFamily: 'serif',        // font to use for character that aren't in MathJax's fonts
+                // mathmlSpacing: true,          // true for MathML spacing rules, false for TeX rules
+                // skipAttributes: {},            // RFDa and other attributes NOT to copy to the output
+                // exFactor: .5,                  // default size of ex in em units
+                // displayAlign: 'center',        // default for indentalign when set to 'auto'
+                // displayIndent: '0'             // default for indentshift when set to 'auto'
+            }
+        };
+    </script>
 </head>

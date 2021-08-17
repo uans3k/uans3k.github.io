@@ -1,0 +1,275 @@
+I"�<h1 id="λ-calculus">λ-calculus</h1>
+
+<h2 id="1-定义">1 定义</h2>
+<p>语法</p>
+
+<blockquote>
+  <p>exp ::= aexp | cexp<br />
+aexp ::= x | λx.exp<br />
+cexp ::= (exp exp)</p>
+</blockquote>
+
+<p>$\alpha$等价<br />
+自由参数不影响exp的等价</p>
+<blockquote>
+  <p>λx.x == λy.y</p>
+</blockquote>
+
+<p>$\beta$规约<br />
+cexp应用时会将第一个exp中的自由参数替换为第二个exp</p>
+<blockquote>
+  <p>(λx.λy.exp a)=λy.exp[x:=a]</p>
+</blockquote>
+
+<h2 id="2-咖喱化-curring">2 咖喱化 (curring)</h2>
+<p>通过咖喱化可以定义多变量λ演算</p>
+
+<blockquote>
+  <p>λ(x y).exp:= λx.(λy.exp)) = λx.λy.exp<br />
+(λ(x y).exp a b)=(λx.λy.exp a b)=exp<br />
+(λ(x y).exp a)=(λx.λy.exp a)=λy.exp[x:=a]</p>
+</blockquote>
+
+<h2 id="3-谓词与逻辑">3 谓词与逻辑</h2>
+<h3 id="bool算子">bool算子</h3>
+<blockquote>
+  <p>true := λ(a b).a<br />
+false := λ(a b).b</p>
+</blockquote>
+
+<h3 id="与运算">与运算</h3>
+<blockquote>
+  <p>and:= λ(a b).(a b false)</p>
+</blockquote>
+
+<blockquote>
+  <p>example:   <br />
+(and true true)=(true true false)=true <br />
+(and false false)= (false false false)=false<br />
+(and true false)= (true false false)=false<br />
+(and false true)= (false true false)=false</p>
+</blockquote>
+
+<h3 id="或运算">或运算</h3>
+<blockquote>
+  <p>or:= λ(a b).(a true b)</p>
+</blockquote>
+
+<blockquote>
+  <p>example:<br />
+(or true true) = (true true false)= true<br />
+(or true false) = (true true false)= false <br />
+(or false false) = (flase true false)= false <br />
+(or false true) = (flase true false)= false</p>
+</blockquote>
+
+<h3 id="否运算">否运算</h3>
+<blockquote>
+  <p>not:= λa.(a false true) <br />
+example:<br />
+(not true)= (true false true)=false 
+(not false)= (false false true)=false</p>
+</blockquote>
+
+<h3 id="异或运算">异或运算</h3>
+
+<blockquote>
+  <p>xor:= λ(a b).(or (and (not a) b) (and a (not b))</p>
+</blockquote>
+
+<blockquote>
+  <p>example:<br />
+(xor true false)=(or (and (not true) false) (and true (not false))= true <br />
+(xor true true)=(or (and (not true) true) (and true (not true))= fasle<br />
+(xor false false)=(or (and (not false) false) (and false (not false))= fasle<br />
+(xor false true)=(or (and (not false) true) (and false (not true))= true</p>
+</blockquote>
+
+<h3 id="条件选择">条件选择</h3>
+
+<blockquote>
+  <p>if:=λ(t a b).(t a b)</p>
+</blockquote>
+
+<blockquote>
+  <p>example: <br />
+(if false a b)=(false a b)=b
+(if true a b)=(true a b)=a</p>
+</blockquote>
+
+<h2 id="4-有序对与列表">4 有序对与列表</h2>
+<h3 id="有序对">有序对</h3>
+
+<blockquote>
+  <p>[a b]:=λt.(if t a b)<br />
+car:=λp.(p true) <br />
+cdr:=λp.(p false)</p>
+</blockquote>
+
+<blockquote>
+  <p>example:   <br />
+(car [a b])=(λt.(if t a b) true)=a <br />
+(cdr [a b])=(λt.(if t a b) flase)=b</p>
+</blockquote>
+
+<h3 id="列表">列表</h3>
+
+<blockquote>
+  <p>[a b c]:=[a [b c]]=λt.(if t a λt2.(if t2 b c))</p>
+</blockquote>
+
+<blockquote>
+  <p>example:<br />
+(car [a b c])=(car [a [b c]])=a<br />
+(cdr [a b c])=(cdr [a [b c]])=[b c]</p>
+</blockquote>
+
+<h2 id="5-自然数">5 自然数</h2>
+
+<h3 id="自然数算子">自然数算子</h3>
+<p>相当于将operator 作用在 operand n次</p>
+
+<blockquote>
+  <p>0:= λ(f x).x<br />
+1:= λ(f x).(f x)<br />
+2:= λ(f x).(f (f x))<br />
+…<br />
+n:= λ(f x).(f^n x)</p>
+</blockquote>
+
+<h3 id="后继">后继</h3>
+
+<blockquote>
+  <p>succ:= λa.(λ(b c).(b (a b c))</p>
+</blockquote>
+
+<blockquote>
+  <p>example: <br />
+(succ n)=λ(b c).(b (n b c))<br />
+=λ(b c).(b (b^n c))<br />
+=λ(b c).(b^{(n+1)} c)=n+1</p>
+</blockquote>
+
+<h3 id="加法">加法</h3>
+
+<blockquote>
+  <p>plus:= λ(m n).λ(a b).(m a (n a b))</p>
+</blockquote>
+
+<blockquote>
+  <p>example: <br />
+(plus m n)=λ(a b).(m a (n a b))=λ(a b).(m a (a^n b))<br />
+=(a^m (a^n b))=(a^{m+n} b)</p>
+</blockquote>
+
+<h3 id="zero比较">zero比较</h3>
+<blockquote>
+  <p>zero?:=λa.((a false not) false))</p>
+</blockquote>
+
+<blockquote>
+  <p>example:<br />
+(zero? 2)=((2 false not) false)=(1 false false)=false<br />
+(zero? 0)=((0 false not) false)=(not false)=true</p>
+</blockquote>
+
+<h3 id="前继">前继</h3>
+<blockquote>
+  <p>succ_{pair}:=λa.[(succ (car a)) (if (zero? (car a)) (cdr a) (succ (cdr a)))]<br />
+pred:=λa.(cdr (a succ_{pair} [0 0]))</p>
+</blockquote>
+
+<blockquote>
+  <p>example:<br />
+(succ_{pair} [0 0])=[(succ 0) (if (zero? 0) 0 1))]=[1 0]<br />
+(succ_{pair} [1 0])=[(succ 1) (if (zero? 1) 0 1))]=[2 1]<br />
+ …<br />
+(succ_{pair} [n-1,n-2])=[(succ n-1) (if (zero? n-1) n-2 n-1))]=[n n-1]<br />
+(pred n)=(cdr (n succ_{pair} [0 0]))=(cdr [n n-1])=n-1</p>
+</blockquote>
+
+<h3 id="减法">减法</h3>
+
+<blockquote>
+  <p>sub:= λ(m n).(n pred m)</p>
+</blockquote>
+
+<blockquote>
+  <p>example: <br />
+(sub m n)=(n-1 pred m-1)=…=(0 pred m-n)=m-n</p>
+</blockquote>
+
+<h3 id="乘法">乘法</h3>
+<blockquote>
+  <p>mult:= λ(m n).λ(a b).(m (n a c) b)</p>
+</blockquote>
+
+<blockquote>
+  <p>example:<br />
+(mult m n)=λ(a b).(m (n a) b)<br />
+ =λ(a b).(m-1 (n a) (a^n b))=…=λ(a b).(a^{m<em>n} b)=m</em>n</p>
+</blockquote>
+
+<h3 id="指数">指数</h3>
+<blockquote>
+  <p>exp:= λ(m n).λ(a b).(n a (m a b))</p>
+</blockquote>
+
+<h3 id="自然数比较">自然数比较</h3>
+
+<blockquote>
+  <p>ge?:= λ(m n).(zero? (sub n m))<br />
+le?:= λ(m n).(zero? (sub m n))<br />
+equal?:= λ(m n).(and (ge? m n) (ge? n m))<br />
+g?:= λ(m n).(and (ge? m n) (not (equal? m n)))<br />
+l?:= λ(m n).(and (le? m n) (not (equal? m n)))</p>
+</blockquote>
+
+<h2 id="6-let-bound">6 Let-Bound</h2>
+
+<blockquote>
+  <p>let x=M in N:= ((λx.N) M)</p>
+</blockquote>
+
+<h2 id="7-迭代">7 迭代</h2>
+<h3 id="不动点算子-y组合子悖论算子">不动点算子 (Y组合子,悖论算子)</h3>
+
+<blockquote>
+  <p>Y := λg.(λx.(g (x x)) λx.(g (x x)))</p>
+</blockquote>
+
+<blockquote>
+  <p>example: <br />
+(Y g)=(g (λx.(g (x x)) λx.(g (x x))))<br />
+=(g (λf.(λx.(f (x x)) λx.(f (x x))) g))=(g (Y g))</p>
+</blockquote>
+
+<p>这样对于任意$f$,令$g=(Y f)$则$f(g)=g$,$g$称为$f$的不动点，用不动点算子可以构造任意算子的不动点</p>
+
+<h3 id="利用y算子构建递归函数">利用Y算子构建递归函数</h3>
+
+<h4 id="阶乘函数fact">阶乘函数fact</h4>
+<p>辅助函数 A</p>
+<blockquote>
+  <p>A:=λf.(λn.((zero? n) 1 (mult n (f (pred n)))))</p>
+</blockquote>
+
+<p>我们需要找到$f$让$f=(A\ f)$,这样</p>
+
+<blockquote>
+  <p>(A f n)= (mult n (f n-1))=(mult n ((A f) n-1))=…=n!</p>
+</blockquote>
+
+<p>利用Y算子我们知道$f=(Y A)$,这样我们就能构造fact函数为
+fact:= (A (Y A))=(Y A)<br />
+example:  <br />
+(fact n)=(Y A n)=(A (Y A) n)=(mult n (Y A n-1))=…=n!</p>
+
+<h4 id="任意递归函数g">任意递归函数g</h4>
+
+<blockquote>
+  <p>g:=(Y λf.M)<br />
+example:  <br />
+(g x)=(Y λf.M x)=(λf.M (Y λf.M) x)=(M[f=λf.M] x)</p>
+</blockquote>
+:ET
