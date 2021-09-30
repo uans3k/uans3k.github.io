@@ -10,25 +10,25 @@ tags:
 ---
 
 ## 1 定义 序(order)  
-$*$ 是集合$S$上的2元关系,记为$(*,S)$。有如下定义:  
->1. $\forall a \in S(\neg a*a) \leftrightarrow *称为S上的非自反(irreflexive)关系$  
->2. $\forall a,b \in S(a*b \lor b*a )\leftrightarrow *称为S上的对称(symmetric)关系$  
->3. $\forall a,b,c \in S(a*b \land b*c\rightarrow a*c )\leftrightarrow *称为S上的传递(transitive)关系$      
->4. $\forall a,b \in S(a*b \land b*a\leftrightarrow (a \leftrightarrow b))\leftrightarrow *称为S上的反对称(antisymmetric)关系$      
+$\circ$ 是集合$S$上的2元关系,记为$(\circ,S)$。有如下定义:  
+>1. $\forall a \in S(\neg a \circ a) \leftrightarrow  \circ 称为S上的非自反(irreflexive)关系$  
+>2. $\forall a,b \in S(a \circ b \lor b \circ a )\leftrightarrow  \circ 称为S上的对称(symmetric)关系$  
+>3. $\forall a,b,c \in S(a \circ b \land b \circ c\rightarrow a \circ c )\leftrightarrow  \circ 称为S上的传递(transitive)关系$      
+>4. $\forall a,b \in S(a \circ b \land b \circ a\leftrightarrow (a \leftrightarrow b))\leftrightarrow  \circ 称为S上的反对称(antisymmetric)关系$      
 
 如   
-$(>,N),>是N上的对称关系、传递关系$  
-$(\ge,N),\ge是N上的自反关系、对称关系、传递关系、反对称关系$  
-$(=,N),=是N上的自反关系、传递关系、反对称关系$  
+$(>,N),>$是N上的对称关系、传递关系  
+$(\ge,N),\ge$是N上的自反关系、对称关系、传递关系、反对称关系    
+$(=,N),=$是N上的自反关系、传递关系、反对称关系  
 
->- $*是S上的对称、传递、反对称关系 \leftrightarrow * 是 S上的全序(total\  order)\leftrightarrow (*,S)是一个全序集合$  
->- $*是S上的非自反,对称、传递关系 \leftrightarrow * 是 S上的严格全序(strictly\ total\  order)\leftrightarrow (*,S)是一个严格全序集合$
->- $*是S上的非对称、传递关系 \leftrightarrow * 是 S上的偏序(strictly\ partial\  order)\leftrightarrow (*,S)是一个偏序集合$    
->- $*是S上的非自反、非对称、传递关系 \leftrightarrow * 是 S上的严格偏序(strictly\ partial\  order)\leftrightarrow (*,S)是一个严格偏序集合$  
+>- $ \circ 是S上的对称、传递、反对称关系 \leftrightarrow  \circ  是 S上的全序(total\ order) \leftrightarrow (\circ ,S)是一个全序集合$  
+>- $ \circ 是S上的非自反,对称、传递关系 \leftrightarrow  \circ  是 S上的严格全序(strictly\ total\  order)\leftrightarrow ( \circ ,S)是一个严格全序集合$
+>- $ \circ 是S上的非对称、传递关系 \leftrightarrow  \circ  是 S上的偏序(strictly\ partial\  order)\leftrightarrow ( \circ ,S)是一个偏序集合$    
+>- $ \circ 是S上的非自反、非对称、传递关系 \leftrightarrow  \circ  是 S上的严格偏序(strictly\ partial\  order)\leftrightarrow ( \circ ,S)是一个严格偏序集合 $  
 
 如   
-$(\ge,N),(\le,N)是全序集合$  
-$(>,N),(<,N)是严格全序集合$  
+$(\ge,N),(\le,N)$是全序集合
+$(>,N),(<,N)$是严格全序集合  
 
 
 ## 2 定义 因果
@@ -63,20 +63,20 @@ $让C为一个函数C:=\forall a\in P_i (C(a)=C_i(a))$
 > $\forall a \in P_i,b \in P_j(a\Rightarrow b) \leftrightarrow C_i(a)<C_j(b) \lor (C_i(a)=C_j(b)\land i<j)$  
 
 ## 6 算法 多进程资源互斥访问-一种严格全序组播(strict total order multicast)
-**多进程互斥访问条件**需要满足:
->a. 被$P_i$持有的资源被**授予**其他进程$P_j$访问时,$P_i$必须先**释放**它。  
->b. 对资源的互斥**访问**需要按**请求**的顺序进行。  
->c. 如果每个进程都能最终**释放**资源,那么每个进程的**请求**也最终能执行。  
+**多进程互斥访问条件**需要满足:  
+> a. 被$P_i$持有的资源被**授予**其他进程$P_j$访问时,$P_i$必须先**释放**它。  
+> b. 对资源的互斥**访问**需要按**请求**的顺序进行。  
+> c. 如果每个进程都能最终**释放**资源,那么每个进程的**请求**也最终能执行。  
 
 为了构建满足上述要求的算法,我们可以基于算法5提出一个全序组播算法，既每个进程的请求序列具有按照5定义的同样的顺序。
 
 这个算法基于2条假设5条规则:  
-> 假设    
+假设:   
 > 1. 所有消息被接受的顺序跟发送的顺序一致。   
 > 2. 所有消息不会丢失。  
 
-实际算法需要额外考虑如何实现这2个假设。 
-> 规则    
+实际算法需要额外考虑如何实现这2个假设。  
+规则:      
 > 3. $P_i$发起**请求**事件$req$时,相当于发起一个带全序逻辑时间的事件$req:C_i(a):P_i$到所有进程,同时将$req:C_i(req):P_i$加入$P_i$加入自己的请求队列$Q_i$.  
 > 4. $P_j$接受到事件$req:C_i(req):P_i$时,将$req:C_i(req):P_i$加入自己的请求队列$Q_j$,按*4*的算法更新自己的逻辑时间并响应该事件,既相当于发送$C_j(ack)=(Max(C_i(req),Max_e(C_j(e)))+2)$的响应事件$ack:C_j(ack):P_j$    
 > 5. 当$P_i$持有资源访问权限时,$P_i$可发起**释放**事件$rel$,相当于发起一个带全序逻辑时间的事件$rel:C_i(rel):P_i$到所有进程，并将自身队列$R_i$的最小的$req:C_i(req):P_i$删除。  
