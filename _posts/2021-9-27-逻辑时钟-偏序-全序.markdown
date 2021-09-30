@@ -10,25 +10,25 @@ tags:
 ---
 
 ## 1 定义 序(order)  
-$\circ$ 是集合$S$上的2元关系,记为$(\circ,S)$。有如下定义:  
->1. $\forall a \in S(\neg a \circ a) \leftrightarrow  \circ 称为S上的非自反(irreflexive)关系$  
->2. $\forall a,b \in S(a \circ b \lor b \circ a )\leftrightarrow  \circ 称为S上的对称(symmetric)关系$  
->3. $\forall a,b,c \in S(a \circ b \land b \circ c\rightarrow a \circ c )\leftrightarrow  \circ 称为S上的传递(transitive)关系$      
->4. $\forall a,b \in S(a \circ b \land b \circ a\leftrightarrow (a \leftrightarrow b))\leftrightarrow  \circ 称为S上的反对称(antisymmetric)关系$      
+$*$ 是集合$S$上的2元关系,记为$(*,S)$。有如下定义:  
+>1. $\forall a \in S(\neg a*a) \leftrightarrow *称为S上的非自反(irreflexive)关系$  
+>2. $\forall a,b \in S(a*b \lor b*a )\leftrightarrow *称为S上的对称(symmetric)关系$  
+>3. $\forall a,b,c \in S(a*b \land b*c\rightarrow a*c )\leftrightarrow *称为S上的传递(transitive)关系$      
+>4. $\forall a,b \in S(a*b \land b*a\leftrightarrow (a \leftrightarrow b))\leftrightarrow *称为S上的反对称(antisymmetric)关系$      
 
 如   
-$(>,N),>$是N上的对称关系、传递关系  
-$(\ge,N),\ge$是N上的自反关系、对称关系、传递关系、反对称关系    
-$(=,N),=$是N上的自反关系、传递关系、反对称关系  
+$(>,N),>是N上的对称关系、传递关系$  
+$(\ge,N),\ge 是N上的自反关系、对称关系、传递关系、反对称关系$  
+$(=,N),=是N上的自反关系、传递关系、反对称关系$  
 
->- $ \circ 是S上的对称、传递、反对称关系 \leftrightarrow  \circ  是 S上的全序(total\ order) \leftrightarrow (\circ ,S)是一个全序集合$  
->- $ \circ 是S上的非自反,对称、传递关系 \leftrightarrow  \circ  是 S上的严格全序(strictly\ total\  order)\leftrightarrow ( \circ ,S)是一个严格全序集合$
->- $ \circ 是S上的非对称、传递关系 \leftrightarrow  \circ  是 S上的偏序(strictly\ partial\  order)\leftrightarrow ( \circ ,S)是一个偏序集合$    
->- $ \circ 是S上的非自反、非对称、传递关系 \leftrightarrow  \circ  是 S上的严格偏序(strictly\ partial\  order)\leftrightarrow ( \circ ,S)是一个严格偏序集合 $  
+>- $*是S上的对称、传递、反对称关系 \leftrightarrow * 是 S上的全序(total \  order) \leftrightarrow (*,S)是一个全序集合$  
+>- $*是S上的非自反,对称、传递关系 \leftrightarrow * 是 S上的严格全序(strictly \ total \  order) \leftrightarrow (*,S)是一个严格全序集合$
+>- $*是S上的非对称、传递关系 \leftrightarrow * 是 S上的偏序(strictly \ partial \  order) \leftrightarrow (*,S)是一个偏序集合$    
+>- $*是S上的非自反、非对称、传递关系 \leftrightarrow * 是 S上的严格偏序(strictly \ partial \  order)\leftrightarrow (*,S)是一个严格偏序集合$  
 
 如   
-$(\ge,N),(\le,N)$是全序集合
-$(>,N),(<,N)$是严格全序集合  
+$(\ge,N),(\le,N)是全序集合$  
+$(>,N),(<,N)是严格全序集合$  
 
 
 ## 2 定义 因果
