@@ -9,7 +9,6 @@ tags:
     - 函数式
     - 程序语言设计
 ---
-# λ-calculus
 
 ## 1 定义
 语法
@@ -121,7 +120,7 @@ cdr:=λp.(p false)
 1:= λ(f x).(f x)  
 2:= λ(f x).(f (f x))  
 ...  
-n:= λ(f x).(f^n x)  
+n:= λ(f x).($f^n x)  
 
 
 ### 后继
@@ -130,8 +129,8 @@ n:= λ(f x).(f^n x)
 
 >example:   
 (succ n)=λ(b c).(b (n b c))  
-=λ(b c).(b (b^n c))  
-=λ(b c).(b^{(n+1)} c)=n+1  
+=λ(b c).(b ($b^n$ c))  
+=λ(b c).($b^{(n+1)$} c)=n+1  
 
 
 ### 加法
@@ -139,8 +138,8 @@ n:= λ(f x).(f^n x)
 >plus:= λ(m n).λ(a b).(m a (n a b))  
 
 >example:   
-(plus m n)=λ(a b).(m a (n a b))=λ(a b).(m a (a^n b))  
-=(a^m (a^n b))=(a^{m+n} b)  
+(plus m n)=λ(a b).(m a (n a b))=λ(a b).(m a ($a^n$ b))  
+=($a^m$ ($a^n$ b))=($a^{m+n}$ b)  
 
 
 ### zero比较
@@ -152,15 +151,15 @@ n:= λ(f x).(f^n x)
 
 
 ### 前继
->succ_{pair}:=λa.[(succ (car a)) (if (zero? (car a)) (cdr a) (succ (cdr a)))]  
-pred:=λa.(cdr (a succ_{pair} [0 0]))   
+>$succ_{pair}$:=λa.[(succ (car a)) (if (zero? (car a)) (cdr a) (succ (cdr a)))]  
+pred:=λa.(cdr (a $succ_{pair}$ [0 0]))   
 
 >example:  
 (succ_{pair} [0 0])=[(succ 0) (if (zero? 0) 0 1))]=[1 0]  
 (succ_{pair} [1 0])=[(succ 1) (if (zero? 1) 0 1))]=[2 1]  
  ...  
-(succ_{pair} [n-1,n-2])=[(succ n-1) (if (zero? n-1) n-2 n-1))]=[n n-1]  
-(pred n)=(cdr (n succ_{pair} [0 0]))=(cdr [n n-1])=n-1   
+($succ_{pair}$ [n-1,n-2])=[(succ n-1) (if (zero? n-1) n-2 n-1))]=[n n-1]  
+(pred n)=(cdr (n $succ_{pair}$ [0 0]))=(cdr [n n-1])=n-1   
 
 
 ### 减法
@@ -176,7 +175,7 @@ pred:=λa.(cdr (a succ_{pair} [0 0]))
 
 >example:  
 (mult m n)=λ(a b).(m (n a) b)  
- =λ(a b).(m-1 (n a) (a^n b))=...=λ(a b).(a^{m*n} b)=m*n  
+ =λ(a b).(m-1 (n a) ($a^n$ b))=...=λ(a b).($a^{m*n}$ b)=m*n  
 
 
 

@@ -1,0 +1,92 @@
+---
+layout: post
+title:      逻辑时钟-偏序-全序
+subtitle:   
+author:     uans3k
+header-img: img/post-bg-2015.jpg
+tags:
+    - 分布式
+    - 共识
+---
+
+## 1 定义 序(order)  
+ $*$ 是集合$S$上的2元关系,记为$(*,S)$。有如下定义:  
+>1. $\forall a \in S(\neg a*a) \leftrightarrow *称为S上的非自反(irreflexive)关系$  
+>2. $\forall a,b \in S(a*b \lor b*a )\leftrightarrow *称为S上的对称(symmetric)关系$  
+>3. $\forall a,b,c \in S(a*b \land b*c\rightarrow a*c )\leftrightarrow *称为S上的传递(transitive)关系$      
+>4. $\forall a,b \in S(a*b \land b*a\leftrightarrow (a \leftrightarrow b))\leftrightarrow *称为S上的反对称(antisymmetric)关系$      
+
+如   
+$(>,N),>是N上的对称关系、传递关系$  
+$(\ge,N),\ge是N上的自反关系、对称关系、传递关系、反对称关系$  
+$(=,N),=是N上的自反关系、传递关系、反对称关系$  
+
+>- $*是S上的对称、传递、反对称关系 \leftrightarrow * 是 S上的全序(total\  order)\leftrightarrow (*,S)是一个全序集合$  
+>- $*是S上的非自反,对称、传递关系 \leftrightarrow * 是 S上的严格全序(strictly\ total\  order)\leftrightarrow (*,S)是一个严格全序集合$
+>- $*是S上的非对称、传递关系 \leftrightarrow * 是 S上的偏序(strictly\ partial\  order)\leftrightarrow (*,S)是一个偏序集合$    
+>- $*是S上的非自反、非对称、传递关系 \leftrightarrow * 是 S上的严格偏序(strictly\ partial\  order)\leftrightarrow (*,S)是一个严格偏序集合$  
+
+如   
+$(\ge,N),(\le,N)是全序集合$  
+$(>,N),(<,N)是严格全序集合$  
+
+
+## 2 定义 因果
+$关系\rightarrowtail 称为多进程事件集P(P_1,P_2...P_n)上的因果关系,当且满足条件:$  
+>1. $\forall a,b \in P_i(a发生在b之前) \rightarrow a\rightarrowtail b$
+>2. $\forall a \in P_i,b \in P_j(a为P_i发生至P_j的事件,b为P_j接受到的a事件) \rightarrow a\rightarrowtail b$
+>3. $\forall a,b,c \in P(a \rightarrowtail  b \land b \rightarrowtail c)\rightarrow a\rightarrowtail c$
+
+$(\rightarrowtail,P)$是一个严格偏序集合
+
+
+## 3 定义 逻辑时间
+$让C_i 为一个函数 C_i:a \in P_i \rightarrow N$  
+$让C为一个函数C:=\forall a\in P_i (C(a)=C_i(a))$  
+> $C称为逻辑时种 \leftrightarrow \forall a,b \in P(a \rightarrowtail b  \rightarrow  C(a)<C(b))$
+
+该定义等价于$C_i满足$
+>1. $\forall a,b \in P_i (a \rightarrowtail b) \rightarrow C_i(a)<C_i(b)$
+>2. $\forall a \in P_i,b \in P_j(a为P_i发生至P_j的事件,b为P_j接受到的a事件) \rightarrow C_i(a)<C_i(b)$
+
+上述定义表明，当我们构造出个一个逻辑时间时，两个事件的因果关系被逻辑时间函数捕获。也就是说当我们让事件按照逻辑时间的序列执行时，这个执行保持了事件的因果关系。
+
+## 4 算法 逻辑时间构建
+>1. $\forall a\in P_i\not{\exists} b\in P_i(b \rightarrowtail a) \rightarrow C_i(a)=0$
+>2. $\forall a,b \in P_i\not{\exists} c\in P_i(a \rightarrowtail c \rightarrowtail b) \rightarrow C_i(b)=C_i(a)+1$  
+>3. $\forall a \in P_i,b \in P_j(a为P_i发生至P_j的事件,b为P_j接受到的a事件) \rightarrow C_j(b)=Max(C_i(a),Max_e(C_j(e)))+1$
+
+很明显上述算法构建出了逻辑时间,存在两个事件$C(a)=C(b)$,$C_i$存在间隙,但是$C$不存在间隙因为任意一个时间演进都需要要在已有时间的基础上+1。
+
+## 5 算法 全序逻辑时间
+我们可以通过逻辑时间和进程排序定义严格全序事件集:  
+> $\forall a \in P_i,b \in P_j(a\Rightarrow b) \leftrightarrow C_i(a)<C_j(b) \lor (C_i(a)=C_j(b)\land i<j)$  
+
+## 6 算法 多进程资源互斥访问-一种严格全序组播(strict total order multicast)
+**多进程互斥访问条件**需要满足:
+>a.被$P_i$持有的资源被**授予**其他进程$P_j$访问时,$P_i$必须先**释放**它。  
+>b.对资源的互斥**访问**需要按**请求**的顺序进行。  
+>c.如果每个进程都能最终**释放**资源,那么每个进程的**请求**也最终能执行。  
+
+为了构建满足上述要求的算法,我们可以基于算法5提出一个全序组播算法，既每个进程的请求序列具有按照5定义的同样的顺序。
+
+这个算法基于2条假设5条规则:  
+> 假设    
+> 1.所有消息被接受的顺序跟发送的顺序一致。   
+> 2.所有消息不会丢失。  
+
+实际算法需要额外考虑如何实现这2个假设。 
+> 规则  
+> 3.$P_i$发起**请求**事件$req$时,相当于发起一个带全序逻辑时间的事件$req:C_i(a):P_i$到所有进程,同时将$req:C_i(req):P_i$加入$P_i$加入自己的请求队列$Q_i$.  
+> 4.$P_j$接受到事件$req:C_i(req):P_i$时,将$req:C_i(req):P_i$加入自己的请求队列$Q_j$,按*4*的算法更新自己的逻辑时间并响应该事件,既相当于发送$C_j(ack)=(Max(C_i(req),Max_e(C_j(e)))+2)$的响应事件$ack:C_j(ack):P_j$    
+> 5.当$P_i$持有资源访问权限时,$P_i$可发起**释放**事件$rel$,相当于发起一个带全序逻辑时间的事件$rel:C_i(rel):P_i$到所有进程，并将自身队列$R_i$的最小的$req:C_i(req):P_i$删除。  
+> 6.$P_j$接收到事件$rel:C_i(rel):P_i$时，将自身队列$R_j$的$rel:C_i(rel):P_i$删除。  
+> 7.$P_i$被**授予**资源当且仅当(1)$R_j$的最小的事件来自于自身.(2)接受到了所有进程对该事件的应答。
+
+证明:
+>- 由3、4、5、6，所有事件按全序逻辑时间排序，因此所有事件是全序的,既队列中的事件是全序的。  
+>- 由7当$P_i$接到自身队列中最小的事件$req:C_i(req):P_i$的所有应答是自身发出的事件时,由1、2、4可知所有小于C_j(ack)=(Max(C_i(req),Max_e(C_j(e)))+2)的事件都已经在Q_i队列中或已被释放掉了，被释放掉的请求说明序小于该事件并已经完成了，在队列中的说明大于该事件的序,因此$req:C_i(req):P_i$在所有队列中都是最小的事件。因此符合了条件b.   
+>- 由5保证了条件a. 
+>- 由上述讨论，所有请求对于所有进程都是按相同的顺序执行的,因此条件c.能够满足。
+
+上述过程实际上构建了一个严格全序组播，所以进程都按相同的事件顺序执行操作，因此可以保持共识而不会发生冲突。不过实际应用中，**如何构建严格全序，同时保证假设1、2**是构建共识算法的关键。（本算法基于全序逻辑时间和假设）
