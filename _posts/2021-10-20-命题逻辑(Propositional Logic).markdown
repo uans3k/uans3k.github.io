@@ -1,6 +1,6 @@
 ---
 layout: post
-title:      逻辑时钟-偏序-全序
+title:      命题逻辑(Propositional Logic)
 subtitle:   
 author:     uans3k
 header-img: img/post-bg-2015.jpg
@@ -81,8 +81,7 @@ $\sigma \nvDash \Gamma$。特别地,我们用$\sigma \vDash \phi$表示$\sigma \
 >>$$ \phi= \neg(\neg \psi^1 \wedge ... \wedge \neg \psi^j) $$
 >> - 若赋值$\sigma$使$f(\sigma[[p_1]],...,\sigma[[p_n]])=True$,那么$(\sigma[[p_1]],...,\sigma[[p_n]])$为某个真值序列$B^j$,
 >>那么$\sigma[[\psi^j]]=True$,因此$\sigma[[\phi^j]]=True$
->> - 若赋值$\sigma$使$\sigma[[\phi^j]]=True$,那么存在一个$\psi^j=True$,既对任意i有$\theta_i^j=True$,因此$若p_i^j=True则b_i^j=True$,$若p_i^j=False则b_i^j=False$,既$\sigma[[p_1]],...,\sigma[[p_n]]$是使f(b_1^j,...,b_n^j)=True的真值序列$B^j$,因此$f(\sigma[[p_1]],...,\sigma[[p_n]])=True$  
->> ---
+>> - 若赋值$\sigma$使$\sigma[[\phi^j]]=True$,那么存在一个$\psi^j=True$,既对任意i有$\theta_i^j=True$,因此$若p_i^j=True则b_i^j=True$,$若p_i^j=False则b_i^j=False$,既$\sigma[[p_1]],...,\sigma[[p_n]]$是使f(b_1^j,...,b_n^j)=True的真值序列$B^j$,因此$f(\sigma[[p_1]],...,\sigma[[p_n]])=True$     
 >> 因此对任意赋值$\sigma$有$\sigma[[\phi]]=f(\sigma[[p_1]],...,\sigma[[p_n]])$,$L^0_{\{f_\neg,f_\wedge\}}$是函数完全的.  
 
 2.4定理说明了只要$F$包含了$f_\neg,f_\wedge$那么就达到了$L^0$表达能力的上限。因此我们可以选择一个包含了$f_\neg,f_\wedge$的$F$构建我们的$L^0$语言。
@@ -115,9 +114,8 @@ $L_{\{\vee,\wedge,\Rightarrow,\equiv,\neg\}}^0$简记为$L^0$
 ### 3.1.3 定义 代入(substitute)
 > s是一个$L^0-公式$到$L^0-公式$的映射,对所有$L^0-公式$,$\phi<s>$是一个**操作**称为**代入**:
 > - 若$p$是一个命题变量则$p<s>=s(p)$
-> - 若$f(\psi_1,...,\psi_n)<s>=f(\psi_1<s>,...,\psi_n<s>)$   
-> ---
->特别地，我们记$f<\psi_1/p_1,...,\phi_n/p_n>,其中p_i<s>=\psi_i$ . 称为**有穷代入**  
+> - 若$f(\psi_1,...,\psi_n)<s>=f(\psi_1<s>,...,\psi_n<s>)$     
+>特别地，我们记$f<\psi_1/p_1,...,\phi_n/p_n>,其中p_i<s>=\psi_i$ . 称为**有穷代入**    
 >简记为SUB  
 
 ### 3.1.4 定义 分离(modus ponens)
