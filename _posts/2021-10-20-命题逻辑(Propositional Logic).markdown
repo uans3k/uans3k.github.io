@@ -69,13 +69,13 @@ $\sigma \nvDash \Gamma$。特别地,我们用$\sigma \vDash \phi$表示$\sigma \
 >$f_\equiv(b_1,b_2)=True$当且仅当$b_1$和$b_2$同时为$True$或者同时为$False$
 
 ### 2.4 定理 函数完全定理(funcion completeness theory)
-> $L^0_{\{f_\neg,f_\wedge\}}$是函数完全的  
+> $L^0_{f_\neg,f_\wedge}$是函数完全的  
 >>证明：
 >>对任意n元真值函数,令
 >>$B^j=(b_1^j,...,b_n^j) 是使f(b_1^j,...,b_n^j)=True的真值序列,j \leq k=2^n$.    
->>$\theta_i^j= \begin{cases}
-    p_i^j ,若 b_i^j= True\\
-    ～p_i^j,若b_i^j=False\\
+>>$\theta_i^j = \begin{cases}
+    p_i^j ,若 b_i^j= True ;\\
+    ～p_i^j,若b_i^j=False \\
 \end{cases}$  
 >>$\psi^j= \theta_1^j \wedge ... \wedge \theta_n^j$  
 >>$\phi= \neg(\neg \psi^1 \wedge ... \wedge \neg \psi^j)$
@@ -158,19 +158,19 @@ $\sigma \nvDash \Gamma$。特别地,我们用$\sigma \vDash \phi$表示$\sigma \
 >若r只包含**公理**、代入操作、分离操作则$H_r^0$具有**可靠性**.
 
 我们令
->$r_1=\left\{
+>$r_1=\{
     p \Rightarrow (q \Rightarrow p),
     (p \Rightarrow (q \Rightarrow r))\Rightarrow ((p \Rightarrow q) \Rightarrow (p \Rightarrow r)),
     (\neg p \Rightarrow \neg q)\Rightarrow(p \Rightarrow q),
     SUB,
     MP
-\right\}$  
->$r_2=\left\{
+\}$  
+>$r_2=\{
     \phi \Rightarrow (\psi \Rightarrow \phi),
     (\phi \Rightarrow (\psi \Rightarrow \chi))\Rightarrow ((\phi \Rightarrow \psi) \Rightarrow (\phi \Rightarrow \chi)),
     (\neg \phi \Rightarrow \neg \psi)\Rightarrow(\phi \Rightarrow \psi),
     MP
-\right\}$  
+\}$  
 
 ### 3.2.7 定理 完全性定理
 
