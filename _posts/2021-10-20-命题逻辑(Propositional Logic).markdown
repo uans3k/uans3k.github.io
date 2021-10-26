@@ -89,14 +89,14 @@ $\sigma \nvDash \Gamma$。特别地,我们用$\sigma \vDash \phi$表示$\sigma \
 
 ### 2.5 定义 $L^0$语言 
 > $L^0$语法由下述定义:   
->-$(b_1 \vee b_2)= f_\vee(b_1,b_2)$  
->-$(b_1 \wedge b_2)= f_\wedge(b_1,b_2)$  
->-$(b_1 \Rightarrow b_2)=f_\Rightarrow(b_1,b_2)$   
->-$(b_1 \equiv b_2)=f_\equiv(b_1,b_2)$  
->-$(\neg b)=f_\neg(b)$  
+>- $(b_1 \vee b_2)= f_\vee(b_1,b_2)$  
+>- $(b_1 \wedge b_2)= f_\wedge(b_1,b_2)$  
+>- $(b_1 \Rightarrow b_2)=f_\Rightarrow(b_1,b_2)$   
+>- $(b_1 \equiv b_2)=f_\equiv(b_1,b_2)$  
+>- $(\neg b)=f_\neg(b)$  
 >  
->去除括号时以$\neg$更高的优先级结合。当我们去除括号后表达的意思一致时，可以去除括号。      
-$L_{\{\vee,\wedge,\Rightarrow,\equiv,\neg\}}^0$简记为$L^0$  
+>去除括号时以$\neg$更高的优先级结合。当我们去除括号后表达的意思一致时，可以去除括号。
+>$L_{\vee,\wedge,\Rightarrow,\equiv,\neg}^0$简记为$L^0$  
 > $L^0$语义由1.4-1.7定义
 
 ## 3 $L^0$演算$H^0$  
@@ -129,7 +129,7 @@ $L_{\{\vee,\wedge,\Rightarrow,\equiv,\neg\}}^0$简记为$L^0$
 >- $\phi_n=\phi$
 >- 对任意$k \le n$,$\phi_k$或是$H_r^0$的**公理**,或是$\Gamma$中的**公式**,或是从$\phi_{j_1},...,\phi_{j_m},j_i \le k$通过动作得到的.   
 >     
->我们记其为$\Gamma \vdash \phi$,称$\phi$在$H_r^0$下从$\Gamma$**可演绎(deducible)**,$\phi$是$H_r^0$下$\Gamma$的**演绎后承(deductive consequence)**,特别地,若$\Gamma=\empty$,记$\vdash \phi$
+>我们记其为$\Gamma \vdash \phi$,称$\phi$在$H_r^0$下从$\Gamma$**可演绎(deducible)**,$\phi$是$H_r^0$下$\Gamma$的**演绎后承(deductive consequence)**,特别地,若$\Gamma=\varnothing$,记$\vdash \phi$
 
 ## 3.2 公理体系的性质
 前面定义了公理体系及其演绎，但他们与**重言式**与**重言蕴涵**有什么关系没有说明,这一节讲指出$H_r^0$与$L^0$的关系,帮助我们使用$H_r^0$来判定$L^0$的语义。
@@ -158,19 +158,19 @@ $L_{\{\vee,\wedge,\Rightarrow,\equiv,\neg\}}^0$简记为$L^0$
 >若r只包含**公理**、代入操作、分离操作则$H_r^0$具有**可靠性**.
 
 我们令
->$$r_1=\{ \\
+>$r_1=\{ \\
     p \Rightarrow (q \Rightarrow p),\\
     (p \Rightarrow (q \Rightarrow r))\Rightarrow ((p \Rightarrow q) \Rightarrow (p \Rightarrow r)),\\
     (\neg p \Rightarrow \neg q)\Rightarrow(p \Rightarrow q),\\
     SUB,\\
     MP\\
-\}$$
->$$r_2=\{ \\
+\}$  
+>$r_2=\{\\
     \phi \Rightarrow (\psi \Rightarrow \phi),\\
     (\phi \Rightarrow (\psi \Rightarrow \chi))\Rightarrow ((\phi \Rightarrow \psi) \Rightarrow (\phi \Rightarrow \chi)),\\
     (\neg \phi \Rightarrow \neg \psi)\Rightarrow(\phi \Rightarrow \psi),\\
     MP\\
-\}$$
+\}$
 
 ### 3.2.7 定理 完全性定理
 
