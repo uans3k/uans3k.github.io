@@ -113,11 +113,11 @@ $\sigma \nvDash \Gamma$。特别地,我们用$\sigma \vDash \phi$表示$\sigma \
 > 从一个公式或多个公式得到另外一个公式的动作称为**操作**
 
 ### 3.1.3 定义 代入(substitute)
-> s是一个$L^0-公式$到$L^0-公式$的映射,对所有$L^0-公式$,$\phi<s>$是一个**操作**称为**代入**:
+>s是一个$L^0-公式$到$L^0-公式$的映射,对所有$L^0-公式$,$\phi<s>$是一个**操作**称为**代入**:
 > - 若$p$是一个命题变量则$p<s>=s(p)$
 > - 若$f(\psi_1,...,\psi_n)<s>=f(\psi_1<s>,...,\psi_n<s>)$
 >       
->特别地，我们记$f<\psi_1/p_1,...,\phi_n/p_n>,其中p_i<s>=\psi_i$ . 称为**有穷代入**    
+>特别地,我们记$f<\psi_1/p_1,...,\phi_n/p_n>,其中p_i<s>=\psi_i$. 称为**有穷代入**    
 >简记代入操作为SUB  
 
 ### 3.1.4 定义 分离(modus ponens)
@@ -158,19 +158,19 @@ $\sigma \nvDash \Gamma$。特别地,我们用$\sigma \vDash \phi$表示$\sigma \
 >若r只包含**公理**、代入操作、分离操作则$H_r^0$具有**可靠性**.
 
 我们令
->$r_1=\{ \\
-    p \Rightarrow (q \Rightarrow p),\\
-    (p \Rightarrow (q \Rightarrow r))\Rightarrow ((p \Rightarrow q) \Rightarrow (p \Rightarrow r)),\\
-    (\neg p \Rightarrow \neg q)\Rightarrow(p \Rightarrow q),\\
-    SUB,\\
-    MP\\
-\}$  
->$r_2=\{\\
-    \phi \Rightarrow (\psi \Rightarrow \phi),\\
-    (\phi \Rightarrow (\psi \Rightarrow \chi))\Rightarrow ((\phi \Rightarrow \psi) \Rightarrow (\phi \Rightarrow \chi)),\\
-    (\neg \phi \Rightarrow \neg \psi)\Rightarrow(\phi \Rightarrow \psi),\\
-    MP\\
-\}$
+>$r_1=\left\{
+    p \Rightarrow (q \Rightarrow p),
+    (p \Rightarrow (q \Rightarrow r))\Rightarrow ((p \Rightarrow q) \Rightarrow (p \Rightarrow r)),
+    (\neg p \Rightarrow \neg q)\Rightarrow(p \Rightarrow q),
+    SUB,
+    MP
+\right\}$  
+>$r_2=\left\{
+    \phi \Rightarrow (\psi \Rightarrow \phi),
+    (\phi \Rightarrow (\psi \Rightarrow \chi))\Rightarrow ((\phi \Rightarrow \psi) \Rightarrow (\phi \Rightarrow \chi)),
+    (\neg \phi \Rightarrow \neg \psi)\Rightarrow(\phi \Rightarrow \psi),
+    MP
+\right\}$  
 
 ### 3.2.7 定理 完全性定理
 
