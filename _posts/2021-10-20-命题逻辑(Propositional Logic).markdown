@@ -40,45 +40,45 @@ $\sigma \nvDash \Gamma$。特别地,我们用$\sigma \vDash \phi$表示$\sigma \
 > $\Gamma$ 为$L^0_F-公式$集合,$\phi$ 为$L^0_F-公式$,我们称$\Gamma$ **重言蕴涵**$\sigma$(记为$\Gamma \vDash \phi$)当且仅当对任意赋值$\sigma$,若$\sigma \vDash \Gamma$则$\sigma \vDash \phi$。
 
 ### 1.6 定义 重言等值(tautological equivalence)
-> $L^0_F-公式 \phi 和 \psi$称为**重言等值**当且仅当对任意赋值$\sigma$有$\sigma[[\phi]]=\sigma[[\psi]]$
+>$L^0_F-公式 \phi 和 \psi$称为**重言等值**当且仅当对任意赋值$\sigma$有$\sigma[[\phi]]=\sigma[[\psi]]$
 
 ### 1.7 定义 重言式(tautological formula)、矛盾式(contradictory formula)、或然式(probable formula)
-> 对任意$L^0_F-公式 \phi$,$\phi$称为**重言式**当且仅当对任意赋值$\sigma$有$\sigma \vDash \phi$。    
-> 对任意$L^0_F-公式 \phi$,$\phi$称为**矛盾式**当且仅当对任意赋值$\sigma$有$\sigma \nvDash \phi$。   
-> 对任意$L^0_F-公式 \phi$,$\phi$称为**或然式**当且仅当存在一个$\sigma$有$\sigma \nvDash \phi$且存在一个$\sigma^\prime$有$\sigma^\prime \vDash \phi$。
+>对任意$L^0_F-公式 \phi$,$\phi$称为**重言式**当且仅当对任意赋值$\sigma$有$\sigma \vDash \phi$。    
+>对任意$L^0_F-公式 \phi$,$\phi$称为**矛盾式**当且仅当对任意赋值$\sigma$有$\sigma \nvDash \phi$。   
+>对任意$L^0_F-公式 \phi$,$\phi$称为**或然式**当且仅当存在一个$\sigma$有$\sigma \nvDash \phi$且存在一个$\sigma^\prime$有$\sigma^\prime \vDash \phi$。
 
 ## 2 $L^0_F$性质
 1节中定义了$L^0_F$,其中1.1-1.2是$L^0_F$语法，1.3-1.7是$L^0_F$的语义。语法描述了如何构成一个语言句子,而语义则告诉我们怎么理解这些句子。我们知道，语法的不同不代表表达能力的不同，但会影响表达的复杂程度和人类的使用难度。这一节旨在指出$L^0_F$的表达能力，以及选择一个易于使用的$L^0_F$。
 ### 2.1 定义 表达(expression)
-> $\phi$是包含n个命题变量$(p_1,...,p_n)$的$L^0_F-公式$,$f$是n元真值函数。  
-> 我们称 $\phi$在$L^0_F$下**表达**$f$当且仅当对任意赋值$\sigma$有$\sigma[[\phi]]=f(\sigma[[p_1],...,\sigma[[p_n]])$.  
-> 我们称$f$在$L^0_F$下**可被表达**当前仅存在一个$\phi$**表达**$f$
+>$\phi$是包含n个命题变量$(p_1,...,p_n)$的$L^0_F-公式$,$f$是n元真值函数。  
+>我们称 $\phi$在$L^0_F$下**表达**$f$当且仅当对任意赋值$\sigma$有$\sigma[[\phi]]=f(\sigma[[p_1],...,\sigma[[p_n]])$.  
+>我们称$f$在$L^0_F$下**可被表达**当前仅存在一个$\phi$**表达**$f$
 
 ### 2.2 定义 函数完全(funcion completeness)
-> $L^0_F$称为**函数完全**的当且仅当任意真值函数在$L^0_F$下**可被表达**
+>$L^0_F$称为**函数完全**的当且仅当任意真值函数在$L^0_F$下**可被表达**
 
 2.1-2.2描述了任意**函数完全**的$L^0_F$具有相同的表达能力且任意$L^0_F\prime$能表达的**函数完全**的$L^0_F$也能表达。**函数完全**的$L^0_F$是$L^0$语言表达能力的上限。
 
 ### 2.3 定义 合取(conjunction)、析取(disjunction)、蕴涵(implication)、否定(negation)、等价(equivalence)
 
-> 我们定义真值函数:  
-> $f_\vee(b_1,b_2)=True$当且仅当 $b_1=True且b_2=True$  
-> $f_\wedge(b_1,b_2)=True$当且仅当 $b_1=True或b_2=True$  
-> $f_\neg(b)=True$当且仅当 $b=False$  
-> $f_\Rightarrow(b_1,b_2)=True$当且仅当$b_1=False$或者$b_1$和$b_2$同时等于$True$  
-> $f_\equiv(b_1,b_2)=True$当且仅当$b_1$和$b_2$同时为$True$或者同时为$False$
+>我们定义真值函数:  
+>$f_\vee(b_1,b_2)=True$当且仅当 $b_1=True且b_2=True$  
+>$f_\wedge(b_1,b_2)=True$当且仅当 $b_1=True或b_2=True$  
+>$f_\neg(b)=True$当且仅当 $b=False$  
+>$f_\Rightarrow(b_1,b_2)=True$当且仅当$b_1=False$或者$b_1$和$b_2$同时等于$True$  
+>$f_\equiv(b_1,b_2)=True$当且仅当$b_1$和$b_2$同时为$True$或者同时为$False$
 
 ### 2.4 定理 函数完全定理(funcion completeness theory)
 > $L^0_{\{f_\neg,f_\wedge\}}$是函数完全的  
 >>证明：
 >>对任意n元真值函数,令
->>$$B^j=(b_1^j,...,b_n^j) 是使f(b_1^j,...,b_n^j)=True的真值序列,j \leq k=2^n$$
->>$$\theta_i^j = \begin{cases}
+>>$B^j=(b_1^j,...,b_n^j) 是使f(b_1^j,...,b_n^j)=True的真值序列,j \leq k=2^n$.    
+>>$\theta_i^j= \begin{cases}
     p_i^j ,若 b_i^j= True\\
     ～p_i^j,若b_i^j=False\\
-\end{cases}$$
->>$$\psi^j= \theta_1^j \wedge ... \wedge \theta_n^j$$
->>$$ \phi= \neg(\neg \psi^1 \wedge ... \wedge \neg \psi^j) $$
+\end{cases}$  
+>>$\psi^j= \theta_1^j \wedge ... \wedge \theta_n^j$  
+>>$\phi= \neg(\neg \psi^1 \wedge ... \wedge \neg \psi^j)$
 >> - 若赋值$\sigma$使$f(\sigma[[p_1]],...,\sigma[[p_n]])=True$,那么$(\sigma[[p_1]],...,\sigma[[p_n]])$为某个真值序列$B^j$,
 >>那么$\sigma[[\psi^j]]=True$,因此$\sigma[[\phi^j]]=True$
 >> - 若赋值$\sigma$使$\sigma[[\phi^j]]=True$,那么存在一个$\psi^j=True$,既对任意i有$\theta_i^j=True$,因此$若p_i^j=True则b_i^j=True$,$若p_i^j=False则b_i^j=False$,既$\sigma[[p_1]],...,\sigma[[p_n]]$是使f(b_1^j,...,b_n^j)=True的真值序列$B^j$,因此$f(\sigma[[p_1]],...,\sigma[[p_n]])=True$  
@@ -89,11 +89,11 @@ $\sigma \nvDash \Gamma$。特别地,我们用$\sigma \vDash \phi$表示$\sigma \
 
 ### 2.5 定义 $L^0$语言 
 > $L^0$语法由下述定义:   
->- $(b_1 \vee b_2)$ = $f_\vee(b_1,b_2)$  
->- $(b_1 \wedge b_2)$ = $f_\wedge(b_1,b_2)$  
->- $(b_1 \Rightarrow b_2)$ = $f_\Rightarrow(b_1,b_2)$   
->- $(b_1 \equiv b_2)$ = $f_\equiv(b_1,b_2)$  
->- $(\neg b)$= $f_\neg(b)$  
+>-$(b_1 \vee b_2)= f_\vee(b_1,b_2)$  
+>-$(b_1 \wedge b_2)= f_\wedge(b_1,b_2)$  
+>-$(b_1 \Rightarrow b_2)=f_\Rightarrow(b_1,b_2)$   
+>-$(b_1 \equiv b_2)=f_\equiv(b_1,b_2)$  
+>-$(\neg b)=f_\neg(b)$  
 >  
 >去除括号时以$\neg$更高的优先级结合。当我们去除括号后表达的意思一致时，可以去除括号。      
 $L_{\{\vee,\wedge,\Rightarrow,\equiv,\neg\}}^0$简记为$L^0$  
@@ -118,18 +118,18 @@ $L_{\{\vee,\wedge,\Rightarrow,\equiv,\neg\}}^0$简记为$L^0$
 > - 若$f(\psi_1,...,\psi_n)<s>=f(\psi_1<s>,...,\psi_n<s>)$
 >       
 >特别地，我们记$f<\psi_1/p_1,...,\phi_n/p_n>,其中p_i<s>=\psi_i$ . 称为**有穷代入**    
->简记为SUB  
+>简记代入操作为SUB  
 
 ### 3.1.4 定义 分离(modus ponens)
->从$\phi,\phi \Rightarrow \psi$得到$\psi$的动作称为**分离**,简记为MP
+>从$\phi,\phi \Rightarrow \psi$得到$\psi$的动作称为**分离**,简记分离操作为MP
 
 ### 3.1.4 定义 公理体系与演绎(deduction)
 > 一个包含**操作**和$L_0$的重言式的体系称为**公理体系**,其中$L_0$的重言式被称为**公理**,**公理**和**操作**的集合被称为**规则**记为$r$,该**公理体系**被记为$H_r^0$.      
 > $H_r^0$中的公式集$\Gamma$到公式$\phi$的**演绎**是满足下列条件的任意公式序列$\phi_1,...,\phi_n$:
-> - $\phi_n=\phi$
-> - 对任意$k \le n$,$\phi_k$或是$H_r^0$的**公理**,或是$\Gamma$中的**公式**,或是从$\phi_{j_1},...,\phi_{j_m},j_i \le k$通过动作得到的.   
->   
-> 我们记其为 $\Gamma \vdash \phi$,称$\phi$在$H_r^0$下从$\Gamma$**可演绎(deducible)**,$\phi$是$H_r^0$下$\Gamma$的**演绎后承(deductive consequence)**,特别地,若$\Gamma=\empty$,记$\vdash \phi$
+>- $\phi_n=\phi$
+>- 对任意$k \le n$,$\phi_k$或是$H_r^0$的**公理**,或是$\Gamma$中的**公式**,或是从$\phi_{j_1},...,\phi_{j_m},j_i \le k$通过动作得到的.   
+>     
+>我们记其为$\Gamma \vdash \phi$,称$\phi$在$H_r^0$下从$\Gamma$**可演绎(deducible)**,$\phi$是$H_r^0$下$\Gamma$的**演绎后承(deductive consequence)**,特别地,若$\Gamma=\empty$,记$\vdash \phi$
 
 ## 3.2 公理体系的性质
 前面定义了公理体系及其演绎，但他们与**重言式**与**重言蕴涵**有什么关系没有说明,这一节讲指出$H_r^0$与$L^0$的关系,帮助我们使用$H_r^0$来判定$L^0$的语义。
@@ -161,17 +161,16 @@ $L_{\{\vee,\wedge,\Rightarrow,\equiv,\neg\}}^0$简记为$L^0$
 >$$r_1=\{ \\
     p \Rightarrow (q \Rightarrow p),\\
     (p \Rightarrow (q \Rightarrow r))\Rightarrow ((p \Rightarrow q) \Rightarrow (p \Rightarrow r)),\\
-    (\neg p \Rightarrow \neg q)\Rightarrow(p \Rightarrow q)\\
+    (\neg p \Rightarrow \neg q)\Rightarrow(p \Rightarrow q),\\
     SUB,\\
     MP\\
 \}$$
 >$$r_2=\{ \\
     \phi \Rightarrow (\psi \Rightarrow \phi),\\
     (\phi \Rightarrow (\psi \Rightarrow \chi))\Rightarrow ((\phi \Rightarrow \psi) \Rightarrow (\phi \Rightarrow \chi)),\\
-    (\neg \phi \Rightarrow \neg \psi)\Rightarrow(\phi \Rightarrow \psi)\\
+    (\neg \phi \Rightarrow \neg \psi)\Rightarrow(\phi \Rightarrow \psi),\\
     MP\\
-\}
-$$
+\}$$
 
 ### 3.2.7 定理 完全性定理
 
