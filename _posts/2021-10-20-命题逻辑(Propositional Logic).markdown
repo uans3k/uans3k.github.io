@@ -65,7 +65,7 @@ $\sigma \nvDash \Gamma$。特别地,我们用$\sigma \vDash \phi$表示$\sigma \
 > $f_\vee(b_1,b_2)=True$当且仅当 $b_1=True且b_2=True$  
 > $f_\wedge(b_1,b_2)=True$当且仅当 $b_1=True或b_2=True$  
 > $f_\neg(b)=True$当且仅当 $b=False$  
-> $f_\Rightarrow(b_1,b_2)=True$当且仅当$b_1=False$或者$b_1$和$b_2$同时等于$True$
+> $f_\Rightarrow(b_1,b_2)=True$当且仅当$b_1=False$或者$b_1$和$b_2$同时等于$True$  
 > $f_\equiv(b_1,b_2)=True$当且仅当$b_1$和$b_2$同时为$True$或者同时为$False$
 
 ### 2.4 定理 函数完全定理(funcion completeness theory)
@@ -81,7 +81,8 @@ $\sigma \nvDash \Gamma$。特别地,我们用$\sigma \vDash \phi$表示$\sigma \
 >>$$ \phi= \neg(\neg \psi^1 \wedge ... \wedge \neg \psi^j) $$
 >> - 若赋值$\sigma$使$f(\sigma[[p_1]],...,\sigma[[p_n]])=True$,那么$(\sigma[[p_1]],...,\sigma[[p_n]])$为某个真值序列$B^j$,
 >>那么$\sigma[[\psi^j]]=True$,因此$\sigma[[\phi^j]]=True$
->> - 若赋值$\sigma$使$\sigma[[\phi^j]]=True$,那么存在一个$\psi^j=True$,既对任意i有$\theta_i^j=True$,因此$若p_i^j=True则b_i^j=True$,$若p_i^j=False则b_i^j=False$,既$\sigma[[p_1]],...,\sigma[[p_n]]$是使f(b_1^j,...,b_n^j)=True的真值序列$B^j$,因此$f(\sigma[[p_1]],...,\sigma[[p_n]])=True$     
+>> - 若赋值$\sigma$使$\sigma[[\phi^j]]=True$,那么存在一个$\psi^j=True$,既对任意i有$\theta_i^j=True$,因此$若p_i^j=True则b_i^j=True$,$若p_i^j=False则b_i^j=False$,既$\sigma[[p_1]],...,\sigma[[p_n]]$是使f(b_1^j,...,b_n^j)=True的真值序列$B^j$,因此$f(\sigma[[p_1]],...,\sigma[[p_n]])=True$  
+>>     
 >> 因此对任意赋值$\sigma$有$\sigma[[\phi]]=f(\sigma[[p_1]],...,\sigma[[p_n]])$,$L^0_{\{f_\neg,f_\wedge\}}$是函数完全的.  
 
 2.4定理说明了只要$F$包含了$f_\neg,f_\wedge$那么就达到了$L^0$表达能力的上限。因此我们可以选择一个包含了$f_\neg,f_\wedge$的$F$构建我们的$L^0$语言。
@@ -92,8 +93,8 @@ $\sigma \nvDash \Gamma$。特别地,我们用$\sigma \vDash \phi$表示$\sigma \
 >- $(b_1 \wedge b_2)$ = $f_\wedge(b_1,b_2)$  
 >- $(b_1 \Rightarrow b_2)$ = $f_\Rightarrow(b_1,b_2)$   
 >- $(b_1 \equiv b_2)$ = $f_\equiv(b_1,b_2)$  
->- $(\neg b)$= $f_\neg(b)$
->---   
+>- $(\neg b)$= $f_\neg(b)$  
+>  
 >去除括号时以$\neg$更高的优先级结合。当我们去除括号后表达的意思一致时，可以去除括号。      
 $L_{\{\vee,\wedge,\Rightarrow,\equiv,\neg\}}^0$简记为$L^0$  
 > $L^0$语义由1.4-1.7定义
@@ -114,7 +115,8 @@ $L_{\{\vee,\wedge,\Rightarrow,\equiv,\neg\}}^0$简记为$L^0$
 ### 3.1.3 定义 代入(substitute)
 > s是一个$L^0-公式$到$L^0-公式$的映射,对所有$L^0-公式$,$\phi<s>$是一个**操作**称为**代入**:
 > - 若$p$是一个命题变量则$p<s>=s(p)$
-> - 若$f(\psi_1,...,\psi_n)<s>=f(\psi_1<s>,...,\psi_n<s>)$     
+> - 若$f(\psi_1,...,\psi_n)<s>=f(\psi_1<s>,...,\psi_n<s>)$
+>       
 >特别地，我们记$f<\psi_1/p_1,...,\phi_n/p_n>,其中p_i<s>=\psi_i$ . 称为**有穷代入**    
 >简记为SUB  
 
@@ -125,8 +127,8 @@ $L_{\{\vee,\wedge,\Rightarrow,\equiv,\neg\}}^0$简记为$L^0$
 > 一个包含**操作**和$L_0$的重言式的体系称为**公理体系**,其中$L_0$的重言式被称为**公理**,**公理**和**操作**的集合被称为**规则**记为$r$,该**公理体系**被记为$H_r^0$.      
 > $H_r^0$中的公式集$\Gamma$到公式$\phi$的**演绎**是满足下列条件的任意公式序列$\phi_1,...,\phi_n$:
 > - $\phi_n=\phi$
-> - 对任意$k \le n$,$\phi_k$或是$H_r^0$的**公理**,或是$\Gamma$中的**公式**,或是从$\phi_{j_1},...,\phi_{j_m},j_i \le k$通过动作得到的. 
-> ---
+> - 对任意$k \le n$,$\phi_k$或是$H_r^0$的**公理**,或是$\Gamma$中的**公式**,或是从$\phi_{j_1},...,\phi_{j_m},j_i \le k$通过动作得到的.   
+>   
 > 我们记其为 $\Gamma \vdash \phi$,称$\phi$在$H_r^0$下从$\Gamma$**可演绎(deducible)**,$\phi$是$H_r^0$下$\Gamma$的**演绎后承(deductive consequence)**,特别地,若$\Gamma=\empty$,记$\vdash \phi$
 
 ## 3.2 公理体系的性质
@@ -162,13 +164,14 @@ $L_{\{\vee,\wedge,\Rightarrow,\equiv,\neg\}}^0$简记为$L^0$
     (\neg p \Rightarrow \neg q)\Rightarrow(p \Rightarrow q)\\
     SUB,\\
     MP\\
-\},\\
-r_2=\{ \\
+\}$$
+>$$r_2=\{ \\
     \phi \Rightarrow (\psi \Rightarrow \phi),\\
     (\phi \Rightarrow (\psi \Rightarrow \chi))\Rightarrow ((\phi \Rightarrow \psi) \Rightarrow (\phi \Rightarrow \chi)),\\
     (\neg \phi \Rightarrow \neg \psi)\Rightarrow(\phi \Rightarrow \psi)\\
     MP\\
-\}$$
+\}
+$$
 
 ### 3.2.7 定理 完全性定理
 
