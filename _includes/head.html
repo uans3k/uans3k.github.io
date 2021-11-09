@@ -37,13 +37,13 @@
 
     <!-- latex-->>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" indentalign="right" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <script>
         MathJax = {
             tex: {
                 // packages: ['base'],        // extensions to use
-                inlineMath: [['$', '$']],
+                inlineMath: [['$', '$'],['$$','$$']],
                 processEnvironments: true, // process \begin{xxx}...\end{xxx} outside math mode
                 // processEscapes: true,      // use \$ to produce a literal dollar sign
                 formatError:               // function called when TeX syntax errors occur

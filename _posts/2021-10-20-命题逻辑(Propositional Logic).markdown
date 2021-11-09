@@ -99,7 +99,7 @@ $\sigma \nvDash \Gamma$。特别地,我们用$\sigma \vDash \phi$表示$\sigma \
 >$L_{\vee,\wedge,\Rightarrow,\equiv,\neg}^0$简记为$L^0$  
 > $L^0$语义由1.4-1.7定义
 
-## 3 $L^0$演算$H^0$  
+## 3 $L^0$演绎$H^0$  
 1,2节定义了$L^0$语言的语法与语义,构建$L^0$的语言的目标包含2个:
 >- 判定$L^0-公式$是否为**重言式**
 >- 判定2个$L^0-公式$集合是否**重言蕴涵**
@@ -151,32 +151,30 @@ $\sigma \nvDash \Gamma$。特别地,我们用$\sigma \vDash \phi$表示$\sigma \
 >**公理系统**具有**一致性**当前仅当不存在$L^0-公式\phi$使得$\vdash \phi 且\vdash \neg \phi$.  
 >$\Gamma$在$H_r^0$下具有一致性当且仅当不存在$L^0-公式\phi$使得$\Gamma \vdash \phi 且\Gamma \vdash \neg \phi$.  
 
-### 3.2.5 定义 可判定性(decidability)
->**公理系统**$H_r^0$具有**可判定性**当且仅当对任意$H_r^0$下的$\Gamma \vDash \phi$,存在**有穷**的公式序列使得$\Gamma \vdash \phi$
-
-### 3.2.6 定理 可靠性定理
+### 3.2.5 定理 可靠性定理
 >若r只包含**公理**、代入操作、分离操作则$H_r^0$具有**可靠性**.
 
 我们令
->$r_1=\{
-    p \Rightarrow (q \Rightarrow p),
-    (p \Rightarrow (q \Rightarrow r))\Rightarrow ((p \Rightarrow q) \Rightarrow (p \Rightarrow r)),
-    (\neg p \Rightarrow \neg q)\Rightarrow(p \Rightarrow q),
-    SUB,
-    MP
-\}$  
->$r_2=\{
-    \phi \Rightarrow (\psi \Rightarrow \phi),
-    (\phi \Rightarrow (\psi \Rightarrow \chi))\Rightarrow ((\phi \Rightarrow \psi) \Rightarrow (\phi \Rightarrow \chi)),
-    (\neg \phi \Rightarrow \neg \psi)\Rightarrow(\phi \Rightarrow \psi),
-    MP
-\}$  
+>$$r_1=\begin{cases}
+    1:p \Rightarrow (q \Rightarrow p) \\
+    2:(p \Rightarrow (q \Rightarrow r))\Rightarrow ((p \Rightarrow q) \Rightarrow (p \Rightarrow r)) \\
+    3:(\neg p \Rightarrow q) \Rightarrow ((\neg p \Rightarrow \neg q) \Rightarrow p)\\
+    4:SUB\\
+    5:MP
+\end{cases}$$
 
-### 3.2.7 定理 完全性定理
+> $$r_2=\begin{cases}
+    1:\phi \Rightarrow (\psi \Rightarrow \phi) \\
+    2:(\phi \Rightarrow (\psi \Rightarrow \chi))\Rightarrow ((\phi \Rightarrow \psi) \Rightarrow (\phi \Rightarrow \chi))\\
+    3:(\neg \phi \Rightarrow \psi) \Rightarrow ((\neg \phi \Rightarrow \neg \psi) \Rightarrow \phi)\\
+    4:MP
+\end{cases}$$  
+ 
+### 3.2.6 定理 完全性定理
 
 > $H_{r_1}^0,H_{r_2}^0$具有**完全性**.
 
-### 3.2.8 定理 一致性定理
+### 3.2.7 定理 一致性定理
 
 > $H_{r_1}^0,H_{r_2}^0$具有**一致性**.    
 > 若$H_r^0$具有一致性,那么对任意公式集$\Gamma$在$H_r^0$下:
