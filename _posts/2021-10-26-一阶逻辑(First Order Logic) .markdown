@@ -45,8 +45,8 @@ $C,F,R$被称为**非逻辑符号(extralogical symbols)**,不同的$C,F,R$构成
 > |relation \ '('\ term \  (,term)* \ ')'\\
 > |'('? \ unit-connectives \ formula \ ')'?\\
 > | '('? \ formula \  \ bin-connectives \ formula \ ')'?\\
-> |'\forall'formula\\
-> |'\exist'formula$  
+> |'\forall' formula\\
+> |'\exists' formula$  
 > $term ::= var|const|function \ '('\ term \  (,term)* \ ')'$  
 > $relation ::=\ 'r_i','r_i' \in R$  
 > $unit-connectives::=\ '\neg'$  
@@ -98,7 +98,7 @@ $L_{C,F,R}^1$语言引入了量词、变量、常量、关系、函数，使得�
 >- $\sigma[[\phi \Rightarrow \psi]]=True$ 当且仅若 $\sigma[[\phi]]=True则\sigma[[\psi]]=True$
 >- $\sigma[[\phi \equiv \psi]]=True$ 当且仅若 $\sigma[[\phi]]=\sigma[[\psi]]$
 >- $\sigma[[\forall x \phi]]=True$当且仅当**所有**属于$A$的$a$有$\sigma(a/x)[[\phi]]=True$
->- $\sigma[[\exist x \phi]]=True$当且仅当**存在**属于$A$的$a$有$\sigma(a/x)[[\phi]]=True$
+>- $\sigma[[\exists x \phi]]=True$当且仅当**存在**属于$A$的$a$有$\sigma(a/x)[[\phi]]=True$
 >  
 > 这样的**解释**被称为**塔尔斯基语义**
 
@@ -370,13 +370,15 @@ $
 
 ### 4.2.3 $r_2规则$
 $r_1$未包括量化规则,$r_2$填上了相关公里
->$$r_2=\begin{cases}
+>$$r_2=
+\begin{cases}
   r_1  \\
   4:\forall x(\phi \Rightarrow \psi) \Rightarrow (\forall \phi \Rightarrow \forall \psi) \\
   5:\forall x \phi_{t/x} \Rightarrow \phi_{t/x}<t/x> \\
   6:\phi_{+x} \Rightarrow \forall x \phi_{+x} \\ 
   7: \forall x_1,...,x_n \phi,\phi为任意r_2公理
-\end{cases}$$
+\end{cases}
+>$$
 
 ### 4.2.3 $H_{r_2}^{L^1}$相关定理
 $H_{r_2}^{L^1}$除了$H_{r_1}^{L^1}$相关定理,还包含一些量化相关的定理
@@ -506,10 +508,12 @@ $\Gamma \vDash \phi_n$.由题设，存在$\phi_1,...,\phi_n$是从$\Gamma$到$\p
 
 >证:
 > 因为P可数,因此$L_{P,F_1}^0$可数,可以将$L_{P,F_1}^0$的公式排列为$\phi_1,\phi_2,...$,设$\Gamma$为一致集,令$\Gamma_1=\Gamma$,由4.2.6.2我们可以递归的构建
-> $$\Gamma_{i+1}=\begin{cases}
+> $$\Gamma_{i+1}= 
+\begin{cases}
     \Gamma_i \cup \{\phi \}若\phi 与 \Gamma一致 \\
     \Gamma_i \cup \{\neg \phi \}若\neg \phi 与 \Gamma一致 \\
-\end{cases}$$  
+\end{cases}
+> $$  
 >由4.2.6知则$\cup_{i=1}^\infty \Gamma_i$是极大一致集,假设不一致,由一致性定理存在有穷子集$\{\psi_1,...,\psi_n\}$不一致,对每一个$\psi_i$,其对应$\phi_1,\phi_2,...$序列中的$\phi_j$,因此按定义$\psi_i \in \Gamma_j$,取$\{\psi_1,...,\psi_n\}$中对应最大的$\phi_k$则$\{\psi_1,...,\psi_n\} \in \Gamma_k$,既$\{\psi_1,...,\psi_n\}$是一致的,矛盾.
 
 ### 4.2.13 定理 $H_{r_2}^{L_{P,F}^0}$满足定理
