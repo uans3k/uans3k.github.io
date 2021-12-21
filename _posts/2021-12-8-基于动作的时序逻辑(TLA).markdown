@@ -1,0 +1,143 @@
+---
+layout: post
+title:      λ-calculus
+subtitle:   
+author:     uans3k
+header-img: img/post-bg-2015.jpg
+tags:
+    - 逻辑
+    - 声明式语言
+---
+
+## 1 TLA的BNF语法
+>$$
+\begin{aligned}
+formula ::= & |predict \\
+            & | `\Box' formula\\
+            & | `\neg' formula \\
+            & | formula\ (`\vee' | `\wedge' | `\Rightarrow' | `\equiv')\ formula \\
+            & | \exists `v_i' : formula \\
+            & | \dot{\exists} `v_i' : formula \\
+predict ::= & |`r_i'  `(' item (,item)* `)' \\
+            & |`Enabled' action \\
+action  ::= &  `r_i' `(' param\ (,param)* `)' \\
+item    ::= & | `v_i' \\
+            & | `c_i' \\
+            & | f_i' `(' item\ (,item)* `)' \\
+item^\prime ::= 
+            & | v_i^\prime\\
+            & | c_i^\prime \\
+            & | `f_i' `(' param\ (,param)* `)' \\
+param   ::= & item|item^\prime
+\end{aligned}
+>$$
+
+## 2 TLA的语义
+为了更紧凑的描述TLA的语义,我们用一个二阶语言作描述TLA语义的元语言.因为模型是确定的,且TLA的语义解释后不存在自由符号，因此模型该语言可以是直意的(不含额外自由符号需要赋值).我们用$A \circeq B$表示$A$的含义$B$,$B$为上述的元语言直意。
+>首先我们定义元语言中的模型:  
+>- $T=\{formula_1,formula_2,...\}$是一个满足TLA语法的语言集
+>- $\sigma$是一个三元序列$<A,I,\omega>$其中A是论域,表示T讨论的内容.I是T中所有$c_i,r_i,f_i$到A元素、A集合上的关系、A集合上的函数的一个映射.$\omega$是一个序列$<s_1,s_2,...>$,其中$s_i$是T中所有$v_i$到A元素的一个映射,所有这样的映射的集合为$S$,所有这样的序列的集合为$\Omega$。$\sigma[[formula]]$表示formula的语义  
+>- $\sigma(<s_1^\prime,s_2^\prime,...> / <s_1,s_2,...>)$ 表示将其中的赋值序列$<s_1,s_2,...>$替换为$<s_1^\prime,s_2^\prime,...>$（元语言中的一个函数解释）
+>- $\sharp \sigma$表示将其中的赋值序列$<s_1,s_2,...>$按下列规则替换
+> $$\sharp <s_1,s_2,...> = \begin{cases}
+     <s_1,s_1,...> ;若对任意i>1有s_i=s_1 \\
+     \sharp<s_2,s_3,...> ;若s_1=s_2 \\
+     <s_1> \circ \sharp<s_2,s_3,...> ;否则
+\end{cases}
+> $$
+> - $\sigma$上的关系$=_x$:$\sigma_1 =_x \sigma_2$当且仅当其中的序列$<s_1,s_2,...>$和$<t_1,t_2,...>$满足所有的$i>1$和所有变量$v \neq x$有$s_i[[v]]=t_i[[v]]$
+ 
+> 我们可以递归的定义$\sigma[[formula]]$:
+> - $\sigma[[c_i]] \circeq I(c_i)$
+> - $\sigma[[f_i]] \circeq I(f_i)$
+> - $\sigma[[r_i]] \circeq I(r_i)$
+> - $\sigma[[f_i(parma_1,...,parma_n)]] \circeq\sigma[[f_i]](\sigma[[parma_1]],...,\sigma[[parma_n]])$
+> - $\sigma[[f_i(item_1,...,item_n)]] \circeq\sigma[[f_i]](\sigma[[item_1]],...,\sigma[[item_n]])$
+> - $\sigma[[r_i(parma_1,...,parma_n))]] \circeq\sigma[[r_i]](\sigma[[parma_1]],...,\sigma[[parma_n]])$
+> - $\sigma[[r_i(item_1,...,item_n))]] \circeq\sigma[[r_i]](\sigma[[item_1]],...,\sigma[[item_n]])$
+> - $\sigma[[v_i]] \circeq s_1(v_i)$
+> - $\sigma[[v_i^\prime]] \circeq s_2(v_i)$
+> - $\sigma[[Enable\ action]] \circeq\exists t \in S:\sigma(<s_1,t,...>/<s_1,s_2,...>)[[action]]$
+> - $\sigma[[formula_1 \vee formula_2]] \circeq\sigma[[formula_1]] \vee \sigma[[formula_2]]$
+> - $\sigma[[formula_1 \wedge formula_2]] \circeq\sigma[[formula_1]] \wedge \sigma[[formula_2]]$
+> - $\sigma[[formula_1 \Rightarrow formula_2]] \circeq\sigma[[formula_1]] \Rightarrow \sigma[[formula_2]]$
+> - $\sigma[[formula_1 \equiv formula_2]] \circeq\sigma[[formula_1]] \equiv \sigma[[formula_2]]$  
+> - $\sigma[[\neg formula]] \circeq\neg \sigma[[formula]]$
+> - $\sigma [[\Box formula]] \circeq\forall n \in N:\sigma(<s_n,s_{n+1},...>/<s_1,s_2,...>)[[formula]]$
+> - $\sigma[[\exists v :formula]] \circeq\exists a \in A:\sigma(a/v)[[formula]]$
+> - $\sigma[[\dot{\exists} v:formula]] \circeq \exists \sigma^\prime \in \Sigma:\sharp \sigma =_v \sharp \sigma^\prime \wedge \sigma^\prime[[formula]]$
+> 
+其中$\sigma[[\dot{\exists} v:formula]]$的语义定义是为了保证$formula$语义在不变状态迁移(stuttering steps)下的语义保持相同.
+
+我们可以用上述元语言定义满足(satisfy)关系、永真式(valid formula),分别记为$\sigma \vDash F$、$\vDash F$,其中F为formula:
+> - $\sigma \vDash F \circeq\sigma[[F]]=True$  
+> - $\vDash F \circeq\forall \sigma \in \Sigma:\sigma \vDash F$
+
+## 3 TLA的一些语法糖(记号)
+使用原始的TLA语法和语义可以表示出一些具有特定语义的TLA公式。为了简记这些公式,我们引入一些符号来表示它们。事实上我们可以将这些记号替换为原始的TLA公式,得到原始语法定义.
+> $$\begin{aligned}
+f^\prime &\triangleq f<\bf{v^\prime}/\bf{v}>\\
+[Action]_f &\triangleq Action \vee f^\prime = f \\
+<Action>_f &\triangleq Action \wedge f^\prime \neq f \\
+Unchange\ f &\triangleq f^\prime = f \\
+\Diamond formula &\triangleq \neg \Box \neg formula \\
+formula_1 \rightsquigarrow formula_2 &\triangleq \Box(formula_1  \Rightarrow \Diamond formula_2)\\
+WF_f(Action) &\triangleq \Box \Diamond <Action>_f \vee \Box \Diamond \neg Enable <Action>_f \\
+SF_f(Action) &\triangleq \Box \Diamond <Action>_f \vee \Diamond \Box \neg Enable <Action>_f
+\end{aligned} 
+> $$
+
+我们可以用TLA的语义$\sigma$来解释上述记号:
+> - $\sigma[[\Diamond formula ]] = \sigma[[\neg \Box \neg formula]]=\neg \forall n \in N: \neg \sigma(<s_n,s_{n+1},...>/<s_1,s_2,...>)[[formula]]= \exists n \in N : \sigma(<s_n,s_{n+1},...>/<s_1,s_2,...>)[[formula]]$,因此$\sigma \vDash \Diamond formula$表示$\sigma$**最终满足**公式$formula$
+> - $\sigma [[formula_1 \rightsquigarrow formula_2]] = \sigma [[\Box(formula_1  \Rightarrow \Diamond formula_2)]]=\forall n \in N : \sigma[[formula_1]] \Rightarrow \sigma[[\Diamond formula_2]]$,因此$\sigma \vDash formula_1 \rightsquigarrow formula_2$表示**总是有**若$\sigma$满足$formula_1$那么$\sigma$**最终满足**$formula_2$
+> - $\sigma[[WF_f(Action)]] = \sigma[[\Box \Diamond <Action>_f \vee \Box \Diamond \neg Enable <Action>_f ]]=(\forall n \in N: \exists m :\sigma(<s_{n+m},s_{n+m+1},...>/<s_1,s_2,...>)[[<Action>_f]] )\vee(\forall n \in N: \exists m : \neg \sigma[[Enable <Action>_f]])$,因此$\sigma \vDash WF_f(Action)$表示$\sigma$**总是最终满足**$<Action>_f$或**最终总是不再能够满足**$<Action>_f$.换句话说$WF_f$表示**弱公平性**,$WF_f(<Action>_f)$指出在**有限步骤后**一定能执行$<Action>_f$
+> - $\sigma[[SF_f<Action>]] = \sigma[[\Box \Diamond <Action>_f \vee \Box \Diamond \neg Enable <Action>_f ]]=(\forall n \in N: \exists m :\sigma(<s_{n+m},s_{n+m+1},...>/<s_1,s_2,...>)[[<Action>_f]] )\vee(\exists m :\forall n \in N:  \neg \sigma[[Enable <Action>_f]])$,因此$\sigma \vDash WF_f(Action)$表示$\sigma$**总是最终满足**$<Action>_f$或**在一确定m个步骤后总是不再能够满足**$<Action>_f$.换句话说$SF_f$**表示强公平性**,$SF_f(<Action>_f)$指出**在一确定m个步骤后**一定能执行$<Action>_f$
+
+## 4 TLA的演绎
+如同一阶逻辑中一样,除了按照语义来判断**满足关系**和**永真式**(这需要穷举赋值,在论域无穷时总是不能完成的),我们可以加入**保真**的公理和推导规则(以下统称rule)来演绎出**满足关系**和**永真式**,通常只需要加入少了$rule$既可保证**一致性、可靠性、完全性、紧致性**,但实践中往往会加入更丰富的$rule$来使的演绎系统更好用。
+我们用$\frac{\Gamma}{\phi}$表示从公式集合$\Gamma$可得出公式$\phi$作为演绎序列的一个成员,TLA一个常用的演绎系统$H$如下,其中$F_i$表示$Formula$,$F_{\dot{+}v}$表示$v$非$\dot{\exists}$自由出现,$F_{+v}$表示$v$非$\exists$自由出现,$A_i,N_i,M_i$表示$Action$,$P_i,I_i$表示$Predict$,$\succ$表示**良基偏序(well -founded partial order)**(对所有$c_i \in S$,存在有限个偏序链$c_1 \succ c_2 \succ ...$):
+>- STL1:命题逻辑中的规则(如MP,Trans,CUT....)
+>- STL2:$\Box F \Rightarrow F$
+>- STL3:$\Box \Box F$
+>- STL4:$\frac{F_1 \Rightarrow F_2}{\Box F_1 \Rightarrow \Box F_2}$
+>- STL5:$\Box (F_1 \wedge F_2) \equiv \Box F_1 \wedge \Box F_2$
+>- STL6:$\Diamond \Box(F_1 \wedge F_2) \equiv \Diamond \Box F_1 \wedge \Diamond \Box F_2$
+>- LATTICE: $\frac{F_1 \wedge (v_1 \in S) \Rightarrow F_{v_1} \rightsquigarrow F_2 \wedge (\exists v_2 \in S : v_1 \succ v_2 \wedge F_{v_2} )}{F \Rightarrow (\exists v_1 \in S:F_{v_1} \rightsquigarrow F_2)}$
+>- TLA1:$\Box P \equiv P \wedge \Box[P \Rightarrow P^\prime]_P$
+>- TLA2:$\frac{P_1 \wedge [A_1]_{f_1} \Rightarrow P_2 \wedge [A_2]_{f_2}}{\Box P_1 \wedge \Box[A_1]_{f_1} \Rightarrow \Box P_2 \wedge \Box [A_2]_{f_2}}$
+>- INV1:$\frac{I \wedge [N]_f \Rightarrow I^\prime}{I \wedge [N]_f \Rightarrow \Box I}$
+>- INV2: $\Box I \Rightarrow (\Box[N]_f \equiv \Box[N \wedge I \wedge I^\prime]_f)$
+>- WF1: $\frac{\begin{aligned}
+& P_1 \wedge [N]_f \Rightarrow P_1^\prime \vee P_2^\prime \\
+& P_1 \wedge <N \wedge A>_f \Rightarrow P_2^\prime \\ 
+& P_1 \Rightarrow Enable <A>_f
+\end{aligned}}{\Box[N]_f \wedge WF_f(A) \Rightarrow (P_1 \rightsquigarrow P_2)}$
+> 
+>- WF2:$\frac{\begin{aligned}
+& <N \wedge A_2>_f \Rightarrow <\overline{M}>_{\overline{g}} \\
+& P \wedge P^\prime \wedge <N \wedge A_1> \Rightarrow A_2\\
+& P \wedge \overline{Enable <M>_g} \Rightarrow Enable <A_1>_f \\
+& \Box[N \wedge \neg A_2] \wedge WF_f(A) \wedge \Box F \Rightarrow \Diamond\Box P 
+\end{aligned}}{\Box[N]_f \wedge WF_f(A) \wedge \Box F \Rightarrow \overline{WF_g(M)}}$
+>
+>- SF1: $\frac{\begin{aligned}
+& P_1 \wedge [N]_f \Rightarrow P_1^\prime \vee P_2^\prime \\
+& P_1 \wedge <N \wedge A>_f \Rightarrow P_2^\prime \\ 
+& \Box P_1  \wedge \Box[F]_f \wedge \Box F \Rightarrow Enable <A>_f
+\end{aligned}}{\Box[N]_f \wedge SF_f(A) \wedge \Box F \Rightarrow (P_1 \rightsquigarrow P_2)}$
+> 
+>- SF2:$\frac{\begin{aligned}
+& <N \wedge A_2>_f \Rightarrow <\overline{M}>_{\overline{g}} \\
+& P \wedge P^\prime \wedge <N \wedge A_1> \Rightarrow A_2\\
+& P \wedge \overline{Enable <M>_g} \Rightarrow Enable <A_1>_f \\
+& \Box[N \wedge \neg A_2] \wedge SF_f(A) \wedge \Box F \Rightarrow \Diamond\Box P 
+\end{aligned}}{\Box[N]_f \wedge SF_f(A) \wedge \Box F \Rightarrow \overline{SF_g(M)}}$
+>
+>- F1:$F<v_j/v_i> \Rightarrow \dot{\exists} v_i :F$
+>- F1:$F<c/v> \Rightarrow \exists v:F$
+>- F2:$\frac{F_1 \Rightarrow F_{2\dot{+}v}}{\dot{\exists} v:F_1 \Rightarrow F_{2\dot{+}v}}$
+>- F2:$\frac{F_1 \Rightarrow F_{2+v}}{\exists v:F_1 \Rightarrow F_{2+v}}$
+
+## 5 简单例子
+
+### 5.1 

@@ -460,7 +460,7 @@ $\Gamma \vDash \phi_n$.由题设，存在$\phi_1,...,\phi_n$是从$\Gamma$到$\p
 >1. 若$\Gamma \vdash \neg \phi$则$\Gamma,\phi \vdash \neg \phi$，再由$\Gamma,\phi \vdash \phi$因此$\Gamma ,\phi$不一致.  
 若$\Gamma ,\phi$不一致则$\Gamma ,\phi \vdash \neg \phi$由SRAA知$\Gamma \vdash \neg \phi$
 >2. 若$\Gamma$一致,假设$\Gamma$与$\phi$不一致且$\Gamma$与$\neg \phi$不一致,那么由1由$\Gamma \vdash \neg \phi$且$\Gamma \vdash \phi$,既$\Gamma$不一致,矛盾.
->3. 若 $\Gamma$与$\neg \neg \phi$一致,设$\Gamma$与$\phi$不一致,由1有$\Gamma \vdash \neg \phi$, 由DN有$\Gamma \vdash \neg \neg \neg \phi$,由DN$\Gamma$与$\neg \neg \phi$不一致，矛盾.  
+>3. 若 $\Gamma$与$\neg \neg \phi$一致,设$\Gamma$与$\phi$不一致,由1有$\Gamma \vdash \neg \phi$, 由DN有$\Gamma \vdash \neg \neg \neg \phi$,由DN有$\Gamma$与$\neg \neg \phi$不一致，矛盾.  
 若$\Gamma$与$\phi$一致,假设$\Gamma$与$\neg \neg \phi$不一致,连续两次使用1得到$\Gamma$与$\phi$不一致,矛盾.
 >4. 若$\Gamma$不一致则$\Gamma - \{\phi\},\phi \vdash \neg \phi$,由SRAA$\Gamma - \{\phi\} \vdash \neg \phi$.  
 若对任意属于$\Gamma$的$\phi$有$\Gamma - \{\phi\} \vdash \neg \phi$则$\Gamma - \{\phi\},\phi \vdash \neg \phi$,又有$\Gamma - \{\phi\},\phi \vdash \phi$,因此$\Gamma$不一致
@@ -507,8 +507,8 @@ $\Gamma \vDash \phi_n$.由题设，存在$\phi_1,...,\phi_n$是从$\Gamma$到$\p
 >设P可数,$H_{r_2}^{L_{P,F}^0}$中的一致集可扩充为极大一致集
 
 >证:
-> 因为P可数,因此$L_{P,F_1}^0$可数,可以将$L_{P,F_1}^0$的公式排列为$\phi_1,\phi_2,...$,设$\Gamma$为一致集,令$\Gamma_1=\Gamma$,由4.2.6.2我们可以递归的构建
-> $$\Gamma_{i+1}= 
+> 因为P可数,因此$L_{P,F_1}^0$可数,可以将$L_{P,F_1}^0$的公式排列为$\phi_1,\phi_2,...$,设$\Gamma$为一致集,令$\Gamma_1=\Gamma$,由4.2.6.2我们可以递归的构建  
+> $$\Gamma_{i+1} = 
 \begin{cases}
     \Gamma_i \cup \{\phi \}若\phi 与 \Gamma一致 \\
     \Gamma_i \cup \{\neg \phi \}若\neg \phi 与 \Gamma一致 \\
@@ -520,31 +520,37 @@ $\Gamma \vDash \phi_n$.由题设，存在$\phi_1,...,\phi_n$是从$\Gamma$到$\p
 > $H_{r_2}^{L_{P,F}^0}$的任意一致集$\Gamma$可满足
 
 > 证:
-> 由4.2.12 $\Gamma$可扩充为极大一致集$\Gamma^\prime$,由4.2.10任意命题$p_i$或$p_i \in \Gamma^\prime$或$\neg p_i \in \Gamma^\prime$,因此我们可以合法构造如下赋值
-> $$\sigma[[p_i]]=\begin{cases}
+> 由4.2.12 $\Gamma$可扩充为极大一致集$\Gamma^\prime$,由4.2.10任意命题$p_i$或$p_i \in \Gamma^\prime$或$\neg p_i \in \Gamma^\prime$,因此我们可以合法构造如下赋值  
+> $$\sigma[[p_i]]=
+\begin{cases}
     True 若 p_i \in \Gamma^\prime \\
     False 若 \neg p_i \in \Gamma^\prime
-\end{cases}$$
->我们对 $\Gamma^\prime$公式以公式**复杂度**施**归纳法**,证明任意复杂度的公式$\phi \in \Gamma^\prime$有$\sigma[[\phi]]=True$既$\sigma \vDash \Gamma^\prime$
+\end{cases}
+> $$  
+>我们对$\Gamma^\prime$公式以公式**复杂度**施**归纳法**,证明任意复杂度的公式$\phi \in \Gamma^\prime$有$\sigma[[\phi]]=True$既$\sigma \vDash \Gamma^\prime$
 > $deg(\phi)=0$时,$\phi$是明天变量,按$\sigma$定义可知$\sigma[[p_i]]=True$
 > 按归纳复杂度$i \le n$的所有公式$\phi \in \Gamma$当且仅当$\sigma[[\phi]]=True$,设$\psi \in \Gamma$复杂度为n+1:
-> - $\psi =\neg \phi$其中$\deg(\phi)=n$:
-> $$\begin{aligned}
+> - $\psi =\neg \phi$其中$\deg(\phi)=n$:  
+> $$
+\begin{aligned}
 &\sigma[[ \psi]]= True \\
 &当且仅当 \sigma[[ \phi]]=False(语义) \\
 &当前仅当 \phi \notin  \Gamma^\prime(归纳)  \\
 &当前仅当 \neg \phi \in  \Gamma^\prime(4.2.10)  \\
 &当前仅当 \psi \in  \Gamma^\prime
-\end{aligned}$$
-> 因此由题设$\sigma [[\psi]]= True$
-> - $\psi = \phi_1 \Rightarrow \phi_2$,其中$max(deg(\phi_1),deg(\phi_2))=n$:
-> $$\begin{aligned}
+\end{aligned}
+> $$
+> 因此由题设$\sigma [[\psi]]= True$  
+> - $\psi = \phi_1 \Rightarrow \phi_2$,其中$max(deg(\phi_1),deg(\phi_2))=n$:  
+> $$
+\begin{aligned}
     &\sigma[[\psi]]= True \\
     &当且仅当 \sigma[[\phi_1]]=False 或 \sigma[[\phi_2]]=True (语义) \\
     &当且仅当 \neg \phi_1 \in \Gamma^\prime 或  \phi_2 \in \Gamma^\prime (归纳) \\
     &当且仅当 \phi_1 \Rightarrow \phi_2 \in \Gamma^\prime (4.2.6)\\
     &当且仅当 \psi \in \Gamma^\prime
-\end{aligned}$$
+\end{aligned}
+> $$
 > 因此由题设$\sigma [[\psi]]= True$
 
 仿照上述思路,$H_{r_2}^{L_{C,F,R}^1}$应该也可如此构造**赋值**,对比于$L^0$,$L^1$细化了命题的内部结构以及引入了**量化**,因此仿照上述证明我们首先应该确保赋值使原子公式(相当于$L^0$的命题)满足:
@@ -673,7 +679,7 @@ $$\begin{aligned}
 
 虽然我们可以按照如上语义将任何$L^1$公式翻译成仅包含$\{\neg,\Rightarrow,\forall,(,)\}$符号的公式,但为了更好的使用**演绎**,我们可以将上述**逻辑等值**的公式引入公理系统并修改MP规则:
 >MP:从$\phi和\phi \equiv \psi$可得到$\psi$,从$\psi和\phi \equiv \psi$可得到$\phi$
-> $$r_3=\begin{cases}
+>$$r_3=\begin{cases}
     r_2\\
     8: \phi \vee \psi \equiv \neg \phi \Rightarrow \psi \\
     9: \phi \wedge \psi \equiv \neg (\phi \Rightarrow 
@@ -682,8 +688,9 @@ $$\begin{aligned}
 \psi) \wedge (\psi \Rightarrow 
 \phi) \\
     11: \exists x \phi \equiv \neg \forall x \neg \phi
-\end{cases}$$
-这样我们可以用它们构成的公式进行演绎了
+\end{cases}
+>$$
+这样我们可以用它们构成的公式进行演绎了,由RE定理可很容易得到该公理系统的完全性.
 
 ### 4.2.22 $H_{r_3}^{L^1}$的相关定理
 >1. Simp(simplification,简化):若$\Gamma \vdash \phi \wedge \psi$则$\Gamma \vdash \phi$且$\Gamma \vdash \psi$
@@ -692,15 +699,17 @@ $$\begin{aligned}
 $\Gamma \vdash \phi \vee \psi$且$\Gamma \vdash \psi  \vee \phi$
 >4. CA(case argument,分类讨论):若$\Gamma,\phi \vdash \chi$且$\Gamma,\psi \vdash \chi$则$\Gamma,\Delta,\phi \vee \psi \vdash \chi$.若$\Gamma,\phi \vdash \chi$且$\Gamma,\psi \vdash \chi^\prime$则$\Gamma,\Delta,\phi \vee \psi \vdash \chi \vee \chi^\prime$.
 >5. 若$\vdash \phi \equiv \psi$则$\vdash Q_1 x_1...\forall x_n \phi \equiv Q_1 x_0...Q_n x_n \psi$,其中$Q_i \in \{\forall , \exists \}$
->6. $\vdash \forall x_1...\forall x_n \phi \equiv \forall x_{k_0}...\forall y_{k_n} \phi$,其中$x_{k_0},...,x_{k_n}$是$x_0,...,x_n$的一个排列
->7. $\vdash \exists x_1...\exists x_n \phi \equiv \exists x_{k_0}...\exists y_{k_n} \phi$,其中$x_{k_0},...,x_{k_n}$是$x_0,...,x_n$的一个排列
->8. $\vdash \forall (\phi \wedge \psi) \equiv \forall x \phi \wedge \forall x \psi$
+>6. $\vdash \forall x_1...\forall x_n \phi \equiv \forall x_{k_0}...\forall x_{k_n} \phi$,其中$x_{k_0},...,x_{k_n}$是$x_0,...,x_n$的一个排列
+>7. $\vdash \exists x_1...\exists x_n \phi \equiv \exists x_{k_0}...\exists x_{k_n} \phi$,其中$x_{k_0},...,x_{k_n}$是$x_0,...,x_n$的一个排列
+>8. $\vdash \forall x(\phi \wedge \psi) \equiv \forall x \phi \wedge \forall x \psi$
 >9. $\vdash \forall x \phi \vee \forall x \psi \Rightarrow \forall x (\phi \vee \psi)$
 >10. $\vdash \forall x (\phi \Rightarrow \psi) \Rightarrow (\forall x \phi \Rightarrow \forall x \psi)$    
 >11. $\vdash \forall x (\phi \equiv \psi) \Rightarrow (\forall x \phi \equiv \forall x \psi)$
->12. $\exists x (\phi \vee \psi) \equiv \exists x \phi \vee \exists x \psi$
->13. $\exists x (\phi \wedge \psi) \Rightarrow \exists x \phi \wedge \exists x \psi$
->14. $(\exists x \phi \Rightarrow \exists x \psi)\Rightarrow \exists x (\phi \Rightarrow \psi)$
+>12. $\vdash \exists x (\phi \vee \psi) \equiv \exists x \phi \vee \exists x \psi$
+>13. $\vdash \exists x (\phi \wedge \psi) \Rightarrow \exists x \phi \wedge \exists x \psi$
+>14. $\vdash (\exists x \phi \Rightarrow \exists x \psi)\Rightarrow \exists x (\phi \Rightarrow \psi)$
+>15. DeM(摩根律): $\vdash \neg (\phi_1\vee...\vee\phi_n) \equiv \neg \phi_1 \wedge...\wedge \neg\phi_n$
+>16. BE(双重蕴含转换): $\vdash \dot{\exists}$
 
 > 证:  
 > 1 若$\Gamma \vdash \phi \wedge \psi$则$\Gamma \vdash \phi$且$\Gamma \vdash \psi$@  
@@ -726,5 +735,8 @@ $\Gamma \vdash \phi \vee \psi$且$\Gamma \vdash \psi  \vee \phi$
 >>> 由1和2.1很容易得到
 >>>
 >...
+
+### 4.3 元定理与公理系统
+
 
 ## 5 理论与模型
