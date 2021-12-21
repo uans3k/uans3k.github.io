@@ -13,9 +13,9 @@ tags:
 >$$
 \begin{aligned}
 formula ::= & |predict \\
-            & | `\Box' formula\\
-            & | `\neg' formula \\
-            & | formula\ (`\vee' | `\wedge' | `\Rightarrow' | `\equiv')\ formula \\
+            & | '\Box' formula\\
+            & | '\neg' formula \\
+            & | formula\ ('\vee' | '\wedge' | '\Rightarrow' | '\equiv')\ formula \\
             & | \exists `v_i' : formula \\
             & | \dot{\exists} `v_i' : formula \\
 predict ::= & |`r_i'  `(' item (,item)* `)' \\
