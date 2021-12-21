@@ -1,6 +1,6 @@
 ---
 layout: post
-title:      λ-calculus
+title:      基于动作的时序逻辑(TLA)
 subtitle:   
 author:     uans3k
 header-img: img/post-bg-2015.jpg
@@ -51,15 +51,15 @@ param   ::= & item|item^\prime
 > - $\sigma[[c_i]] \circeq I(c_i)$
 > - $\sigma[[f_i]] \circeq I(f_i)$
 > - $\sigma[[r_i]] \circeq I(r_i)$
-> - $\sigma[[f_i(parma_1,...,parma_n)]] \circeq\sigma[[f_i]](\sigma[[parma_1]],...,\sigma[[parma_n]])$
-> - $\sigma[[f_i(item_1,...,item_n)]] \circeq\sigma[[f_i]](\sigma[[item_1]],...,\sigma[[item_n]])$
-> - $\sigma[[r_i(parma_1,...,parma_n))]] \circeq\sigma[[r_i]](\sigma[[parma_1]],...,\sigma[[parma_n]])$
-> - $\sigma[[r_i(item_1,...,item_n))]] \circeq\sigma[[r_i]](\sigma[[item_1]],...,\sigma[[item_n]])$
+> - $\sigma[[f_i(parma_1,...,parma_n)]] \circeq \sigma[[f_i]](\sigma[[parma_1]],...,\sigma[[parma_n]])$
+> - $\sigma[[f_i(item_1,...,item_n)]] \circeq \sigma[[f_i]](\sigma[[item_1]],...,\sigma[[item_n]])$
+> - $\sigma[[r_i(parma_1,...,parma_n))]] \circeq \sigma[[r_i]](\sigma[[parma_1]],...,\sigma[[parma_n]])$
+> - $\sigma[[r_i(item_1,...,item_n))]] \circeq \sigma[[r_i]](\sigma[[item_1]],...,\sigma[[item_n]])$
 > - $\sigma[[v_i]] \circeq s_1(v_i)$
 > - $\sigma[[v_i^\prime]] \circeq s_2(v_i)$
-> - $\sigma[[Enable\ action]] \circeq\exists t \in S:\sigma(<s_1,t,...>/<s_1,s_2,...>)[[action]]$
-> - $\sigma[[formula_1 \vee formula_2]] \circeq\sigma[[formula_1]] \vee \sigma[[formula_2]]$
-> - $\sigma[[formula_1 \wedge formula_2]] \circeq\sigma[[formula_1]] \wedge \sigma[[formula_2]]$
+> - $\sigma[[Enable\ action]] \circeq \exists t \in S:\sigma(<s_1,t,...>/<s_1,s_2,...>)[[action]]$
+> - $\sigma[[formula_1 \vee formula_2]] \circeq \sigma[[formula_1]] \vee \sigma[[formula_2]]$
+> - $\sigma[[formula_1 \wedge formula_2]] \circeq \sigma[[formula_1]] \wedge \sigma[[formula_2]]$
 > - $\sigma[[formula_1 \Rightarrow formula_2]] \circeq\sigma[[formula_1]] \Rightarrow \sigma[[formula_2]]$
 > - $\sigma[[formula_1 \equiv formula_2]] \circeq\sigma[[formula_1]] \equiv \sigma[[formula_2]]$  
 > - $\sigma[[\neg formula]] \circeq\neg \sigma[[formula]]$
@@ -84,8 +84,7 @@ Unchange\ f &\triangleq f^\prime = f \\
 formula_1 \rightsquigarrow formula_2 &\triangleq \Box(formula_1  \Rightarrow \Diamond formula_2)\\
 WF_f(Action) &\triangleq \Box \Diamond <Action>_f \vee \Box \Diamond \neg Enable <Action>_f \\
 SF_f(Action) &\triangleq \Box \Diamond <Action>_f \vee \Diamond \Box \neg Enable <Action>_f
-\end{aligned} 
-> $$
+\end{aligned}$$
 
 我们可以用TLA的语义$\sigma$来解释上述记号:
 > - $\sigma[[\Diamond formula ]] = \sigma[[\neg \Box \neg formula]]=\neg \forall n \in N: \neg \sigma(<s_n,s_{n+1},...>/<s_1,s_2,...>)[[formula]]= \exists n \in N : \sigma(<s_n,s_{n+1},...>/<s_1,s_2,...>)[[formula]]$,因此$\sigma \vDash \Diamond formula$表示$\sigma$**最终满足**公式$formula$
