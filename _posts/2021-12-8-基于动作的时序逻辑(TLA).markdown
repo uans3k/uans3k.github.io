@@ -7,6 +7,7 @@ header-img: img/post-bg-2015.jpg
 tags:
     - 逻辑
     - 声明式语言
+    - TLA+
 ---
 
 ## 1 TLA的BNF语法
@@ -94,30 +95,38 @@ SF_f(Action) &\triangleq \Box \Diamond <Action>_f \vee \Diamond \Box \neg Enable
 
 ## 4 TLA的演绎
 如同一阶逻辑中一样,除了按照语义来判断**满足关系**和**永真式**(这需要穷举赋值,在论域无穷时总是不能完成的),我们可以加入**保真**的公理和推导规则(以下统称rule)来演绎出**满足关系**和**永真式**,通常只需要加入少了$rule$既可保证**一致性、可靠性、完全性、紧致性**,但实践中往往会加入更丰富的$rule$来使的演绎系统更好用。
-我们用$\frac{\Gamma}{\phi}$表示从公式集合$\Gamma$可得出公式$\phi$作为演绎序列的一个成员,TLA一个常用的演绎系统$H$如下,其中$F_i$表示$Formula$,$F_{\dot{+}v}$表示$v$非$\dot{\exists}$自由出现,$F_{+v}$表示$v$非$\exists$自由出现,$A_i,N_i,M_i$表示$Action$,$P_i,I_i$表示$Predict$,$\succ$表示**良基偏序(well -founded partial order)**(对所有$c_i \in S$,存在有限个偏序链$c_1 \succ c_2 \succ ...$):
+我们用$\frac{\Gamma}{\phi}$表示从公式集合$\Gamma$可得出公式$\phi$作为演绎序列的一个成员,TLA一个常用的演绎系统$H$如下,其中$F_i,H_i$表示$Formula$,$F_{\dot{+}v}$表示$v$非$\dot{\exists}$自由出现,$F_{+v}$表示$v$非$\exists$自由出现,$F_{c}$表示$F$包含常量$c$,$A_i,N_i,M_i$表示$Action$,$P_i,I_i$表示$Predict$,$\succ$表示**良基偏序(well -founded partial order)**(对所有$c_i \in S$,存在有限个偏序链$c_1 \succ c_2 \succ ...$):
+>- STL0:集合论的公理定理,记号变换
 >- STL1:命题逻辑中的规则(如MP,Trans,CUT....)
 >- STL2:$\Box F \Rightarrow F$
 >- STL3:$\Box \Box F$
 >- STL4:$\frac{F_1 \Rightarrow F_2}{\Box F_1 \Rightarrow \Box F_2}$
 >- STL5:$\Box (F_1 \wedge F_2) \equiv \Box F_1 \wedge \Box F_2$
 >- STL6:$\Diamond \Box(F_1 \wedge F_2) \equiv \Diamond \Box F_1 \wedge \Diamond \Box F_2$
->- LATTICE: $\frac{F_1 \wedge (v_1 \in S) \Rightarrow F_{v_1} \rightsquigarrow F_2 \wedge (\exists v_2 \in S : v_1 \succ v_2 \wedge F_{v_2} )}{F \Rightarrow (\exists v_1 \in S:F_{v_1} \rightsquigarrow F_2)}$
+>- LATTICE: $\frac{\begin{aligned}
+& c_n \succ ... \succ c_2 \succ c_1 其中 c_i \in S\\
+& F_1 \Rightarrow (c_i \in S \wedge H_{c_i}) \rightsquigarrow (c_{i+1}\in S \wedge c_{i+1}) \\
+& F_1 \Rightarrow (c_n \in S \wedge H_{c_n}) \rightsquigarrow F_2
+\end{aligned}}
+{F_1 \Rightarrow (c_n \in S \wedge c_1 \in S \wedge H_{c_1}) \rightsquigarrow F_2}$
 >- TLA1:$\Box P \equiv P \wedge \Box[P \Rightarrow P^\prime]_P$
 >- TLA2:$\frac{P_1 \wedge [A_1]_{f_1} \Rightarrow P_2 \wedge [A_2]_{f_2}}{\Box P_1 \wedge \Box[A_1]_{f_1} \Rightarrow \Box P_2 \wedge \Box [A_2]_{f_2}}$
->- INV1:$\frac{I \wedge [N]_f \Rightarrow I^\prime}{I \wedge [N]_f \Rightarrow \Box I}$
+>- INV1:$\frac{I \wedge [N]_f \Rightarrow I^\prime}{I \wedge \Box[N]_f \Rightarrow \Box I}$
 >- INV2: $\Box I \Rightarrow (\Box[N]_f \equiv \Box[N \wedge I \wedge I^\prime]_f)$
 >- WF1: $\frac{\begin{aligned}
 & P_1 \wedge [N]_f \Rightarrow P_1^\prime \vee P_2^\prime \\
 & P_1 \wedge <N \wedge A>_f \Rightarrow P_2^\prime \\ 
 & P_1 \Rightarrow Enable <A>_f
-\end{aligned}}{\Box[N]_f \wedge WF_f(A) \Rightarrow (P_1 \rightsquigarrow P_2)}$
+\end{aligned}}
+{\Box[N]_f \wedge WF_f(A) \Rightarrow (P_1 \rightsquigarrow P_2)}$
 > 
 >- WF2:$\frac{\begin{aligned}
 & <N \wedge A_2>_f \Rightarrow <\overline{M}>_{\overline{g}} \\
 & P \wedge P^\prime \wedge <N \wedge A_1> \Rightarrow A_2\\
 & P \wedge \overline{Enable <M>_g} \Rightarrow Enable <A_1>_f \\
 & \Box[N \wedge \neg A_2] \wedge WF_f(A) \wedge \Box F \Rightarrow \Diamond\Box P 
-\end{aligned}}{\Box[N]_f \wedge WF_f(A) \wedge \Box F \Rightarrow \overline{WF_g(M)}}$
+\end{aligned}}
+{\Box[N]_f \wedge WF_f(A) \wedge \Box F \Rightarrow \overline{WF_g(M)}}$
 >
 >- SF1: $\frac{\begin{aligned}
 & P_1 \wedge [N]_f \Rightarrow P_1^\prime \vee P_2^\prime \\
@@ -139,4 +148,119 @@ SF_f(Action) &\triangleq \Box \Diamond <Action>_f \vee \Diamond \Box \neg Enable
 
 ## 5 简单例子
 
-### 5.1 
+### 5.1 类型不变性
+给出一个规约  
+>$\begin{aligned}
+& Inv \triangleq x \in Nat \wedge y \in Nat  \\
+& Init_\Phi \triangleq x=0 \wedge y=0 \\
+& N_1 \triangleq  x^\prime = x +1 \wedge y^\prime = y \\
+& N_2 \triangleq  y^\prime = y +1 \wedge x^\prime = x  \\
+& N \triangleq N_1 \vee N_2 \\
+& \Phi \triangleq Init_\Phi \wedge \Box[N]_{(x,y)}\\
+& Theorem \quad \Phi \Rightarrow \Box Inv
+\end{aligned}$
+>
+$\Box Inv$是一个类型不变式,我们给出定理$\Phi \Rightarrow \Box Inv$的演绎
+> 1: $Init \Rightarrow Inv$ # STL0  
+> 2: $Inv \wedge N_1 \Rightarrow (x \in Nat) \wedge (x^\prime = x+1)$#STL1.Simp  
+> 3: $(x \in Nat) \wedge (x^\prime = x+1) \Rightarrow x^\prime \in Nat$#STL0  
+> 4: $Inv \wedge N_1 \Rightarrow x^\prime \in Nat$#STL1.CUT(2,3)  
+> 5: $Inv \wedge N_1 \Rightarrow y^\prime \in Nat$#类似    
+> 6: $Inv \wedge N_2 \Rightarrow x^\prime \in Nat$#类似   
+> 7: $Inv \wedge N_2 \Rightarrow y^\prime \in Nat$#类似   
+> 8: $Inv \wedge (x^\prime,y^\prime)=(x,y) \Rightarrow x^\prime \in Nat \wedge y^\prime \in Nat$#类似   
+> 9: $Inv \wedge [N]_{(x,y)} \Rightarrow x^\prime \in Nat \wedge y^\prime \in Nat$ #STL1.CA(4,5,6,7,8)   
+> 10: $Inv \wedge [N]_{(x,y)} \Rightarrow Inv^\prime$#STL0   
+> 11: $Inv \wedge \Box [N]_{(x,y)} \Rightarrow \Box Inv^\prime$#INV1(10)    
+> 12: $Init \wedge \Box [N]_{(x,y)} \Rightarrow \Box Inv^\prime$#STL1.CUT(1,9)  
+> 13: $\Phi \Rightarrow \Box [N]_{(x,y)}$#STL0
+>
+
+### 5.2 最终执行
+给出一个规约
+>$\begin{aligned}
+& E \triangleq x>n  \\
+& Init_\Phi \triangleq x=0 \wedge y=0 \\
+& N_1 \triangleq  x^\prime = x +1 \wedge y^\prime = y \\
+& N_2 \triangleq  y^\prime = y +1 \wedge x^\prime = x  \\
+& N \triangleq N_1 \wedge N_2 \\
+& \Phi \triangleq Init_\Phi \wedge \Box[N]_{(x,y)} \wedge WF_{(x,y)}(N_1) \wedge WF_{(x,y)}(N_2)\\
+& Theorem \quad \Phi \wedge (n \in Nat)\Rightarrow \Diamond E
+\end{aligned}$
+
+$\Diamond E$是一个最终执行式,我们给出定理$\Phi \wedge (n \in Nat)\Rightarrow \Diamond E$的演绎
+> $\begin{aligned}
+&1: (n \in Nat \wedge x=n) \wedge (x^\prime,y^\prime)=(x,y)\Rightarrow n \in Nat \wedge x^\prime=n \# STL1.Simp \\
+&2: (n \in Nat \wedge x=n) \wedge N_1 \Rightarrow  x^\prime =n+1 \# STL0,STL1.Simp \\
+&3:  (n \in Nat \wedge x=n) \wedge [N_1]_{(x,y)} \Rightarrow   (n \in Nat \wedge x^\prime=n) \vee x^\prime =n+1    \#STL1.CA \\
+&4: (n \in Nat \wedge x=n) \wedge [N]_{(x,y)} \Rightarrow   (n \in Nat \wedge x^\prime=n) \vee x^\prime =n+1    \#STL1.Conj \\
+&5: (n \in Nat \wedge x=n) \wedge <N>_{(x,y)} \Rightarrow   x^\prime =n+1 \#类似 \\
+&6: n \in Nat \wedge x=n \Rightarrow Enable\ N_1 \#STL0\\
+&7: \Box[N]_{(x,y)}\wedge WF_{(x,y)}(N_1) \Rightarrow (n \in Nat \wedge x=n) \rightsquigarrow (x^\prime=n+1) \#WF1\\
+&8:  \Box[N]_{(x,y)}\wedge WF_{(x,y)}(N_1) \Rightarrow (n \in Nat \wedge x=0) \rightsquigarrow (x^\prime=n+1) \#LATTICE(7)\\
+&9:  \Box[N]_{(x,y)}\wedge WF_{(x,y)}(N_1) \Rightarrow (n \in Nat \wedge x=0) \Rightarrow \Diamond (x^\prime=n+1) \#STL2\\
+&10:  \Box[N]_{(x,y)}\wedge WF_{(x,y)}(N_1)\wedge (n \in Nat \wedge x=0) \Rightarrow  \Diamond (x^\prime=n+1) \#STL1.MP\\
+&11: \Phi \wedge (n \in Nat) \Rightarrow \Diamond(x^\prime=n+1) \#STL1.CUT \\ 
+&12: \Phi \wedge (n \in Nat) \Rightarrow \Diamond(x^\prime>n) \#STL0
+\end{aligned}$ 
+
+### 5.3 互斥执行:5.2的细化
+给出一个规约
+>$\begin{aligned}
+EXTENDS &\quad 5.2 \\
+Init_\Psi \triangleq 
+    &\wedge pc_1="a" \wedge pc_2 = "a" \\
+    &\wedge sem = 1 \\
+    &\wedge Init_\Phi \\
+\alpha_1 \triangleq 
+    &\wedge  pc_1 = "a" \wedge sem > 0 \\
+    &\wedge  pc_1^\prime = "b" \\ 
+    &\wedge  sem^\prime = sem -1 \\
+    &\wedge  Unchange (x,y,pc_2)  \\
+\beta_1 \triangleq 
+    &\wedge  pc_1 = "b" \\
+    &\wedge  pc_1^\prime = "c" \\
+    &\wedge  x^\prime = x+1 \\
+    &\wedge  Unchange (y,pc_2,sem) \\
+\gamma_1 \triangleq 
+    &\wedge  pc_1 = "c" \\
+    &\wedge  pc_1^\prime = "a" \\
+    &\wedge  sem^\prime = sem+1 \\
+    &\wedge  Unchange (x,y,pc_2) \\
+\alpha_2 \triangleq 
+    &\wedge  pc_2 = "a" \wedge sem > 0 \\
+    &\wedge  pc_2^\prime = "b" \\ 
+    &\wedge  sem^\prime = sem -1 \\
+    &\wedge  Unchange (x,y,pc_1)  \\
+\beta_2 \triangleq 
+    &\wedge  pc_2 = "b" \\
+    &\wedge  pc_2^\prime = "c" \\
+    &\wedge  y^\prime = y+1 \\
+    &\wedge  Unchange (x,pc_1,sem) \\
+\gamma_2 \triangleq 
+    &\wedge  pc_2 = "c" \\
+    &\wedge  pc_2^\prime = "a" \\
+    &\wedge  sem^\prime = sem+1 \\
+    &\wedge  Unchange (x,y,pc_1) \\
+M_1 \triangleq & \alpha_1 \vee \beta_1 \vee \gamma_1  \\
+M_2 \triangleq & \alpha_2 \vee \beta_2 \vee \gamma_2 \\
+M \triangleq & M_1 \vee M_2 \\
+\mu \triangleq& (x,y,pc_1,pc_2,sem) \\
+\Psi \triangleq& Init_\psi \wedge \Box[M]_\mu \wedge SF_\mu(M_1) \wedge SF_\mu(M_2) \\
+Theorem &\quad  \Psi \Rightarrow \Phi
+\end{aligned}$
+
+定理说明$\Psi$是$\Phi$的细化实现，我们给出演绎:
+> $\begin{aligned}
+&1:Init_\Psi \Rightarrow \Phi \#STL1.Simp \\
+&2:\alpha_1 \Rightarrow (x,y)^\prime =(x,y) \#STL1.Simp\\ 
+&3:\alpha_2 \Rightarrow (x,y)^\prime =(x,y) \#STL1.Simp\\ 
+&4:\beta_1 \Rightarrow N_1 \#STL1.Simp\\ 
+&5:\beta_2 \Rightarrow N_2 \#STL1.Simp\\ 
+&6:\beta_1 \Rightarrow (x,y)^\prime =(x,y) \#STL1.Simp\\ 
+&7:\beta_2 \Rightarrow (x,y)^\prime =(x,y) \#STL1.Simp\\ 
+&8: \mu^\prime=\mu \Rightarrow (x,y)^\prime =(x,y) \#STL1.Simp \\
+&9: \alpha_1 \vee \beta_1...\beta_2 \vee \gamma_2 \vee \mu^\prime=\mu \Rightarrow N_1 \vee N_2 \vee (x,y)^\prime =(x,y) \#STL1.CA(2-8) \\
+&10: [M]_\mu \Rightarrow [N]_\mu \#STL0(9) \\
+&11: \Box [M]_\mu \Rightarrow \Box [N]_\mu \#STL4(10) \\
+\end{aligned}$ 
