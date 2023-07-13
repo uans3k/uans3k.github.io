@@ -1,10 +1,7 @@
-<script type="text/javascript"
-  src="https://unpkg.com/mermaid@8.0.0-rc.8/dist/mermaid.min.js">
-</script>
-<script>
-$(document).ready(function() {
-    mermaid.initialize({
-        theme: 'forest'
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.0.2/+esm';
+    mermaid.initialize({ startOnLoad: false });
+    await mermaid.run({
+      querySelector: '.language-mermaid',
     });
-});
 </script>
